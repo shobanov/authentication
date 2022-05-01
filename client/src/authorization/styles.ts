@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 export const AuthorizationWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  height: 50vh;
-  width: 80%;
-  background-color: aqua;
+  flex-direction: column;
+  align-items: center;
+  height: 50%;
+  width: 90%;
   @media (max-width: 480px) {
     width: 300px;
   };

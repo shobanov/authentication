@@ -5,10 +5,8 @@ const StyledRoot = styled.div`
   display: flex;
   margin: 0 auto;
   align-items: center;
-  justify-content: space-around;
   height: 100vh;
-  width: 300px;
-  background-color: grey;
+  width: 400px;
 `;
 
 const GlobalStyles: any  = createGlobalStyle`
@@ -23,8 +21,9 @@ body {
 html, body, #root {
   height: 100%;
 }
-* { 
-  font-family: 'Inter';
+* {
+  margin: 0;
+  font-family: 'Segoe UI';
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;

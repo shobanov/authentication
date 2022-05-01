@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { Input, Title } from '../components';
+import { Button, Checkbox, Input, Title } from '../components';
 
 import { AuthorizationWrapper } from './styles';
 
 export const Authorization: FC = () => {
   return (
     <AuthorizationWrapper>
-      <Title title="Sign up" />
+      <Title title="Sign in" />
       <Input
         type={'email'}
         name={'email'}
@@ -17,6 +17,8 @@ export const Authorization: FC = () => {
         name={'email'}
         placeholder={'Password *'}
       />
+      <Checkbox title="Remember me" />
+      <Button title="SIGN IN" />
     </AuthorizationWrapper>
   );
 };

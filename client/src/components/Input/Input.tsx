@@ -10,8 +10,6 @@ interface IProps {
 
 export const Input: FC<IProps> = ( props ) => {
   return (
-    <InputStiled 
-      { ...props }
-    />
+    <InputStiled {...props}/>
   );
 };
