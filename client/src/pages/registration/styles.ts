@@ -1,0 +1,38 @@
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+export const RegistrationWrapper = styled.div`
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  height: 70%;
+  width: 90%;
+  @media (max-width: 480px) {
+    width: 300px;
+  };
+`;
+
+export const NameContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 40px;
+  width: 100%;
+  margin-bottom: 20px;
+  & > :nth-child(n+1):nth-child(-n+2) {
+    width: 48%;
+  };
+`;
+
+export const Nav = styled.nav`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  height: 20px;
+  width: 100%;
+`;
+
+export const LinkRouterDom  = styled(Link)`
+  text-decoration: underline;
+`;
