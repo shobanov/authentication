@@ -3,12 +3,10 @@ import styled from 'styled-components';
 
 export const AuthWrapper = styled.div`
   display: flex;
-  margin: 0 auto;
   flex-direction: column;
   align-items: center;
   height: 50%;
   width: 90%;
-  
   @media (max-width: 480px) {
     width: 300px;
   };

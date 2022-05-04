@@ -6,6 +6,7 @@ import { Auth } from './pages/auth';
 import { Root } from './Root';
 
 export const App: FC = () => {
+  
   return (
     <Root>
       <Routes>

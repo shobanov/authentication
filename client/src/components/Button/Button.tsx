@@ -1,15 +1,17 @@
-import { FC } from 'react';
+import { FC, forwardRef } from 'react';
+import { ButtonProps } from 'antd';
  
 import { ButtonStyled } from './styles';
 
-interface IProps {
+interface IProps extends ButtonProps {
   title: string;
 };
 
-export const Button: FC<IProps> = ({ title }) => {
+export const Button = forwardRef<HTMLButtonElement, IProps>(({ title, ...props }, ref) => {
+  
   return (
-    <ButtonStyled type='primary'>
+    <ButtonStyled ref={ref} type="primary" htmlType="submit" {...props}>
       { title }
     </ButtonStyled>
   );
-};
+});

@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 const StyledRoot = styled.div`
   display: flex;
+  margin: 0 auto;
   align-items: center;
   height: 100vh;
   width: 400px;
@@ -34,6 +35,7 @@ interface IProps {
 };
 
 export const Root: FC<IProps> = ({ children }) => {
+  
   return (
     <>
       <GlobalStyles />

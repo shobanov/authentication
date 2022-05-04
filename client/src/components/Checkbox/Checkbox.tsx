@@ -12,6 +12,7 @@ function onChange(e: CheckboxChangeEvent) {
 };
 
 export const Checkbox: FC<IProps> = ({ title }) => {
+  
   return (
     <CheckboxStyled onChange={onChange}>
       { title }

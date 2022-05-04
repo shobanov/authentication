@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const RegistrationWrapper = styled.div`
+export const RegistrationForm = styled.form`
   display: flex;
-  margin: 0 auto;
   flex-direction: column;
   align-items: center;
   height: 70%;
