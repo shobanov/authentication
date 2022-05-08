@@ -2,13 +2,12 @@ import { FC } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 const StyledRoot = styled.div`
-  /* display: flex;
+  display: flex;
   margin: 0 auto;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  width: 400px; */
-  background-color: gray;
+  width: 400px;
 `;
 
 const GlobalStyles: any  = createGlobalStyle`

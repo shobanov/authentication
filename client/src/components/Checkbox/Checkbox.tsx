@@ -1,21 +1,21 @@
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import { FC } from 'react';
 
-import { CheckboxStyled } from './styles';
+import { CheckboxStyled, Label, Title } from './styles';
  
 interface IProps {
-  title: string;
+  label: string;
 };
 
-function onChange(e: CheckboxChangeEvent) {
-  console.log(`checked = ${e.target.checked}`);
-};
-
-export const Checkbox: FC<IProps> = ({ title }) => {
+export const Checkbox: FC<IProps> = ({ label }) => {
   
   return (
-    <CheckboxStyled onChange={onChange}>
-      { title }
-    </CheckboxStyled>
+    <Label >
+      <CheckboxStyled/>
+      <Title>{ label }</Title>
+    </Label>
   );
 };
+
+// function onChange(e: CheckboxChangeEvent) {
+//   console.log(`checked = ${e.target.checked}`);
+// };

@@ -1,7 +1,13 @@
 import styled from 'styled-components';
-import { Checkbox } from 'antd';
 
-export const CheckboxStyled = styled(Checkbox)`
+export const Label = styled.label`
   align-self: flex-start;
-  margin-top: 10px;
+`;
+
+export const CheckboxStyled = styled.input.attrs({ type: "checkbox" })`
+  vertical-align: middle;
+`;
+
+export const Title = styled.span`
+  margin-left: 5px;
 `;

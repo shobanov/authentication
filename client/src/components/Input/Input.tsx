@@ -1,9 +1,8 @@
 import { forwardRef } from 'react';
-import { InputProps } from 'antd';
 
 import { InputStiled } from './styles';
 
-interface IProps extends InputProps {
+interface IProps {
   type: 'email' | 'text' | 'password' | 'submit';
   name: string;
   placeholder: string;
@@ -12,6 +11,6 @@ interface IProps extends InputProps {
 export const Input = forwardRef<HTMLInputElement, IProps>(( props, ref ) => {
   
   return (
-    <InputStiled {...props}/>
+    <InputStiled {...props} ref={ref}/>
   );
 });
