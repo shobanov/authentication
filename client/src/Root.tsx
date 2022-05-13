@@ -7,7 +7,6 @@ const StyledRoot = styled.div`
 	align-items: center;
 	justify-content: center;
 	height: 100vh;
-	width: 400px;
 `
 
 const GlobalStyles: any = createGlobalStyle`
