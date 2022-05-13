@@ -2,7 +2,13 @@ import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { Button, Checkbox, Input, Title } from '../../components'
-import { RegistrationForm, LinkRouterDom, Nav, NameContainer } from './styles'
+import {
+	RegistrationForm,
+	LinkRouterDom,
+	Nav,
+	NameContainer,
+	RegistrationWrapper,
+} from './styles'
 
 type Inputs = {
 	firstName: string
@@ -12,51 +18,43 @@ type Inputs = {
 }
 
 export const Registration: FC = () => {
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<Inputs>()
+	const { register, handleSubmit } = useForm<Inputs>()
 	const onSubmit: SubmitHandler<Inputs> = data => console.log(data)
 
-	console.log({ ...register('firstName') })
-
 	return (
-		<RegistrationForm onSubmit={handleSubmit(onSubmit)}>
+		<RegistrationWrapper>
 			<Title title='Sign up' />
-			<NameContainer>
+			<RegistrationForm onSubmit={handleSubmit(onSubmit)}>
+				<NameContainer>
+					<Input
+						type='text'
+						placeholder='First Name *'
+						{...register('firstName')}
+					/>
+					<Input
+						type='text'
+						placeholder='Last Name *'
+						{...register('lastName')}
+					/>
+				</NameContainer>
 				<Input
-					type='text'
-					placeholder='First Name *'
-					{...register('firstName')}
+					type='email'
+					placeholder='Email Address *'
+					{...register('email')}
 				/>
-				{errors.firstName && <span>This field is required</span>}
 				<Input
-					type='text'
-					placeholder='Last Name *'
-					{...register('lastName')}
+					type='password'
+					placeholder='Password *'
+					{...register('password')}
 				/>
-				{errors.lastName && <span>This field is required</span>}
-			</NameContainer>
-			<Input
-				type='email'
-				placeholder='Email Address *'
-				{...register('email')}
-			/>
-			{errors.email && <span>This field is required</span>}
-			<Input
-				type='password'
-				placeholder='Password *'
-				{...register('password')}
-			/>
-			{errors.password && <span>This field is required</span>}
-			<Checkbox label='I want to receive inspiration, marketing promotions and updates via email.' />
-			<Button title='SIGN UP' type='submit' />
-			<Nav>
-				<LinkRouterDom to='/auth'>
-					Already have an account? Sign in
-				</LinkRouterDom>
-			</Nav>
-		</RegistrationForm>
+				<Checkbox label='I want to receive inspiration, marketing promotions and updates via email.' />
+				<Button title='SIGN UP' type='submit' />
+				<Nav>
+					<LinkRouterDom to='/auth'>
+						Already have an account? Sign in
+					</LinkRouterDom>
+				</Nav>
+			</RegistrationForm>
+		</RegistrationWrapper>
 	)
 }

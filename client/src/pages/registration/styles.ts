@@ -1,14 +1,26 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+export const RegistrationWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 400px;
+	& > span {
+		margin-bottom: 20px;
+		font-size: larger;
+		font-weight: 600;
+	}
+	@media (max-width: 480px) {
+		width: 300px;
+	}
+`
+
 export const RegistrationForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	width: 90%;
-	@media (max-width: 480px) {
-		width: 300px;
-	} ;
 `
 
 export const NameContainer = styled.div`
