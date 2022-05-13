@@ -1,16 +1,16 @@
-import { FC } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import { FC } from 'react'
+import styled, { createGlobalStyle } from 'styled-components'
 
 const StyledRoot = styled.div`
-  display: flex;
-  margin: 0 auto;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 400px;
-`;
+	display: flex;
+	margin: 0 auto;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	width: 400px;
+`
 
-const GlobalStyles: any  = createGlobalStyle`
+const GlobalStyles: any = createGlobalStyle`
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -29,20 +29,17 @@ html, body, #root {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-`;
+`
 
 interface IProps {
-  children: React.ReactNode;
-};
+	children: React.ReactNode
+}
 
 export const Root: FC<IProps> = ({ children }) => {
-  
-  return (
-    <>
-      <GlobalStyles />
-      <StyledRoot>
-        {children}
-      </StyledRoot>
-    </>
-  );
-};
+	return (
+		<>
+			<GlobalStyles />
+			<StyledRoot>{children}</StyledRoot>
+		</>
+	)
+}
