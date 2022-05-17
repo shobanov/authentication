@@ -1,5 +1,5 @@
-import { FC } from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
+import { FC } from 'react';
+import styled, { createGlobalStyle } from 'styled-components';
 
 const StyledRoot = styled.div`
 	display: flex;
@@ -7,7 +7,7 @@ const StyledRoot = styled.div`
 	align-items: center;
 	justify-content: center;
 	height: 100vh;
-`
+`;
 
 const GlobalStyles: any = createGlobalStyle`
 body {
@@ -28,10 +28,10 @@ html, body, #root {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-`
+`;
 
 interface IProps {
-	children: React.ReactNode
+	children: React.ReactNode;
 }
 
 export const Root: FC<IProps> = ({ children }) => {
@@ -40,5 +40,5 @@ export const Root: FC<IProps> = ({ children }) => {
 			<GlobalStyles />
 			<StyledRoot>{children}</StyledRoot>
 		</>
-	)
-}
+	);
+};

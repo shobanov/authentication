@@ -1,25 +1,34 @@
-import { FC } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { FC } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import nookies from 'nookies';
 
-import { Button, Checkbox, Input, Title } from '../../components'
+import { registerApi } from '../../api';
+import { RegisterDataType } from '../../interfaces/types';
+import { Button, Checkbox, Input, Title } from '../../components';
 import {
 	RegistrationForm,
 	LinkRouterDom,
 	Nav,
 	NameContainer,
 	RegistrationWrapper,
-} from './styles'
-
-type Inputs = {
-	firstName: string
-	lastName: string
-	email: string
-	password: string
-}
+} from './styles';
 
 export const Registration: FC = () => {
-	const { register, handleSubmit } = useForm<Inputs>()
-	const onSubmit: SubmitHandler<Inputs> = data => console.log(data)
+	const { register, handleSubmit, formState } = useForm<RegisterDataType>();
+	const onSubmit: SubmitHandler<RegisterDataType> = async (
+		dto: RegisterDataType
+	) => {
+		try {
+			const data = await registerApi.register(dto);
+			console.log(data);
+			nookies.set(null, 'token', data.token, {
+				maxAge: 30 * 24 * 60 * 60,
+				path: '/',
+			});
+		} catch (err) {
+			console.warn('Registration error', err);
+		}
+	};
 
 	return (
 		<RegistrationWrapper>
@@ -48,7 +57,11 @@ export const Registration: FC = () => {
 					{...register('password')}
 				/>
 				<Checkbox label='I want to receive inspiration, marketing promotions and updates via email.' />
-				<Button title='SIGN UP' type='submit' />
+				<Button
+					isDisabled={!formState.isValid || formState.isSubmitting}
+					title='SIGN UP'
+					type='submit'
+				/>
 				<Nav>
 					<LinkRouterDom to='/auth'>
 						Already have an account? Sign in
@@ -56,5 +69,5 @@ export const Registration: FC = () => {
 				</Nav>
 			</RegistrationForm>
 		</RegistrationWrapper>
-	)
-}
+	);
+};

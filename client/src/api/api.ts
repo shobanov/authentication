@@ -1,47 +1,30 @@
 import axios from 'axios';
 
+import {
+	LoginDataType,
+	RegisterDataType,
+	ResponseCreateUserDataType,
+} from '../interfaces/types';
+
 const instance = axios.create({
 	baseURL: 'https://localhost:5000/',
 });
 
-export const authAPI = {
-	login(data: LoginParamsType) {
-		return instance.post<ResponseType<{ userId?: number }>>('auth/login', data);
+export const authApi = {
+	async login(dto: LoginDataType) {
+		const { data } = await instance.post('login', dto);
+		return data;
 	},
 };
 
-export const registrationAPI = {
-	register(data: RegisterParamsType) {
-		return instance.post<ResponseType<{ userId?: number }>>(
-			'auth/register',
-			data
-		);
+export const registerApi = {
+	async register(dto: RegisterDataType): Promise<ResponseCreateUserDataType> {
+		const { data } = await instance.post<
+			RegisterDataType,
+			{ data: ResponseCreateUserDataType }
+		>('register', dto);
+		return data;
 	},
 };
 
-export const passwordRecoveryAPI = {};
-
-// types
-
-export type ResponseType<D = {}> = {
-	resultCode: number;
-	messages: Array<string>;
-	data: D;
-};
-
-// paramsType
-export type LoginParamsType = {
-	email: string;
-	password: string;
-	rememberMe: boolean;
-	captcha?: string;
-};
-
-export type RegisterParamsType = {
-	firstName: string;
-	lastNamem: string;
-	email: string;
-	password: string;
-	agreement: boolean;
-	captcha?: string;
-};
+export const passwordRecoveryApi = {};
