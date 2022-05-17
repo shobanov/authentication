@@ -1,19 +1,27 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import nookies from 'nookies';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { authApi } from '../../api';
+import { loginApi } from '../../api';
 import { LoginDataType } from '../../interfaces/types';
 import { Button, Checkbox, Input, Title } from '../../components';
 import { AuthForm, AuthWrapper, LinkRouterDom, Nav } from './styles';
 
-export const Auth: FC = () => {
+export const Login: FC = () => {
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const { register, handleSubmit, formState } = useForm<LoginDataType>();
 	const onSubmit: SubmitHandler<LoginDataType> = async (dto: LoginDataType) => {
 		try {
-			const data = await authApi.login(dto);
-			console.log(data);
+			const data = await loginApi.login(dto);
+			nookies.set(null, 'token', data.token, {
+				maxAge: 30 * 24 * 60 * 60,
+				path: '/',
+			});
 		} catch (err) {
-			console.warn('auto login error', err);
+			console.warn('Login error', err);
+			if (err.response) {
+				setErrorMessage(err.data.response.message);
+			}
 		}
 	};
 
@@ -37,6 +45,7 @@ export const Auth: FC = () => {
 					title='SIGN IN'
 					type='submit'
 				/>
+				{errorMessage && 'Need to insert a worning!'}
 				<Nav>
 					<LinkRouterDom to='/forgot_password'>Forgot password?</LinkRouterDom>
 					<LinkRouterDom to='/registration'>

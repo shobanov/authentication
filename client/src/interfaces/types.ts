@@ -12,7 +12,7 @@ export type RegisterDataType = {
 	agreement: boolean;
 };
 
-export type ResponseCreateUserDataType = {
+export type ResponseUserDataType = {
 	createdAd: string;
 	firstName: string;
 	lastName: string;

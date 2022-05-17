@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import nookies from 'nookies';
 
@@ -14,6 +14,7 @@ import {
 } from './styles';
 
 export const Registration: FC = () => {
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const { register, handleSubmit, formState } = useForm<RegisterDataType>();
 	const onSubmit: SubmitHandler<RegisterDataType> = async (
 		dto: RegisterDataType
@@ -25,8 +26,12 @@ export const Registration: FC = () => {
 				maxAge: 30 * 24 * 60 * 60,
 				path: '/',
 			});
+			setErrorMessage(null);
 		} catch (err) {
 			console.warn('Registration error', err);
+			if (err.response) {
+				setErrorMessage(err.data.response.message);
+			}
 		}
 	};
 
@@ -62,6 +67,7 @@ export const Registration: FC = () => {
 					title='SIGN UP'
 					type='submit'
 				/>
+				{errorMessage && 'Need to insert a worning!'}
 				<Nav>
 					<LinkRouterDom to='/auth'>
 						Already have an account? Sign in
