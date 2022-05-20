@@ -2,14 +2,20 @@ import { Request, Response } from 'express';
 
 const UserService = require('./user.service');
 
-export async function createUser(req: Request, res: Response) {
-	const {} = req.body;
+export async function userRegister(req: Request, res: Response) {
+	const { firstName, lastName, email, password } = req.body;
 	try {
-		const user = await UserService.userRegister();
-
-		return res.status(200).json({
-			user,
-		});
+		const condidate = await UserService.userRegister(
+			firstName,
+			lastName,
+			email,
+			password
+		);
+		if (condidate) {
+			return res.status(200).json({
+				message: 'User already exists!',
+			});
+		}
 	} catch ({ message }) {
 		return res.status(400).json({
 			message,
@@ -17,7 +23,7 @@ export async function createUser(req: Request, res: Response) {
 	}
 }
 
-export async function login(req: Request, res: Response) {
+export async function userLogin(req: Request, res: Response) {
 	const {} = req.body;
 	console.log('login');
 	try {

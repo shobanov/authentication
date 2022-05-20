@@ -1,20 +1,33 @@
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
+const bcrypt = require('bcrypt');
 
-export async function createUser() {
+export async function userRegister(
+	firstName: string,
+	lastName: string,
+	email: string,
+	password: string
+) {
 	try {
-		const users = await prisma.users.findMany();
+		const condidate = await prisma.user.findMany({
+			where: {
+				email: {
+					contains: email,
+				},
+			},
+		});
+		const hashPassword = bcrypt.hashSync(password, 4);
 
-		return users;
+		return condidate;
 	} catch (e) {
-		throw Error('');
+		throw Error('db connection problem');
 	}
 }
 
-export async function checkUser() {
+export async function userLogin() {
 	try {
-		const isUserExist = await prisma.users.findMany();
+		const isUserExist = await prisma.user.findMany();
 
 		return isUserExist;
 	} catch (e) {
