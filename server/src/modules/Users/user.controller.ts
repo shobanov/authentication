@@ -20,33 +20,39 @@ export async function userRegister(req: Request, res: Response) {
 			return res.status(200).json({ message: 'User already exists!' });
 		}
 		return res.json({ message: 'User successfully registered' });
-	} catch ({ message }) {
+	} catch (e) {
+		console.log(e);
 		return res.status(400).json({ message: 'Registration error' });
 	}
 }
 
 export async function userLogin(req: Request, res: Response) {
-	const {} = req.body;
-	console.log('login');
+	const { email, password } = req.body;
 	try {
-		const user = await UserService.userLogin();
-
-		return res.status(200).json({
-			user,
-		});
-	} catch ({ message }) {
-		return res.status(400).json({
-			message,
-		});
+		const user = await UserService.userLogin(email);
+		const validPassword = await UserService.userLogin(password);
+		const token = await UserService.userLogin();
+		if (!user) {
+			return res
+				.status(400)
+				.json({ message: `user with email: ${email} not found` });
+		}
+		if (!validPassword) {
+			return res.status(400).json({ message: 'wrong password entered' });
+		}
+		return res
+			.status(200)
+			.json({ token, message: 'Authorization was successful' });
+	} catch (e) {
+		console.log(e);
+		return res.status(400).json({ message: 'Login error' });
 	}
 }
 
-export async function getUsers(req: Request, res: Response) {
+export async function getUsers(_req: Request, res: Response) {
 	try {
-		console.log('');
-	} catch ({ message }) {
-		return res.status(400).json({
-			message,
-		});
+	} catch (e) {
+		console.log(e);
+		return res.status(400).json({ message: 'getUsers error' });
 	}
 }
