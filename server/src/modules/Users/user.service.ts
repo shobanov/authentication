@@ -10,16 +10,25 @@ export async function userRegister(
 	password: string
 ) {
 	try {
-		const condidate = await prisma.user.findMany({
+		const condidate = await prisma.user.findFirst({
 			where: {
 				email: {
 					contains: email,
 				},
 			},
 		});
-		const hashPassword = bcrypt.hashSync(password, 4);
 
-		return condidate;
+		if (condidate) return condidate;
+
+		const hashPassword = bcrypt.hashSync(password, 4);
+		await prisma.user.create({
+			data: {
+				firstName,
+				lastName,
+				email,
+				password: hashPassword,
+			},
+		});
 	} catch (e) {
 		throw Error('db connection problem');
 	}

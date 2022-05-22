@@ -12,14 +12,11 @@ export async function userRegister(req: Request, res: Response) {
 			password
 		);
 		if (condidate) {
-			return res.status(200).json({
-				message: 'User already exists!',
-			});
+			return res.status(200).json({ message: 'User already exists!' });
 		}
+		return res.json({ message: 'User successfully registered' });
 	} catch ({ message }) {
-		return res.status(400).json({
-			message,
-		});
+		return res.status(400).json({ message: 'Registration error' });
 	}
 }
 
@@ -27,7 +24,7 @@ export async function userLogin(req: Request, res: Response) {
 	const {} = req.body;
 	console.log('login');
 	try {
-		const user = await UserService.checkUser();
+		const user = await UserService.userLogin();
 
 		return res.status(200).json({
 			user,
