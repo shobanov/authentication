@@ -1,10 +1,15 @@
 import { Request, Response } from 'express';
+import { validationResult } from 'express-validator';
 
 const UserService = require('./user.service');
 
 export async function userRegister(req: Request, res: Response) {
 	const { firstName, lastName, email, password } = req.body;
 	try {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ message: 'Registration error', errors });
+		}
 		const condidate = await UserService.userRegister(
 			firstName,
 			lastName,
