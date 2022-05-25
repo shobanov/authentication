@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
-const userRoutes = require('./modules/Users/user.router');
+const userRoutes = require('./modules/Users/router');
 
 const PORT = 5000;
 
