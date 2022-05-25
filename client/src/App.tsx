@@ -8,6 +8,7 @@ export const App: FC = () => {
 	return (
 		<Root>
 			<Routes>
+				<Route path='/' element={<Login />} />
 				<Route path='/auth' element={<Login />} />
 				<Route path='/registration' element={<Registration />} />
 				<Route path='/forgot_password' element={<PasswordRecovery />} />
