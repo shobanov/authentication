@@ -1,6 +1,6 @@
-import express from 'express';
+const express = require('express');
 
-import { validation } from './validation';
+const validation = require('./validation');
 const controller = require('./controller');
 
 const router = express.Router();

@@ -1,9 +1,9 @@
-import { PrismaClient } from '@prisma/client';
-import jwt from 'jsonwebtoken';
+const PrismaClient = require('@prisma/client');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-import { ErrorTypes } from './errors';
-import { salt } from './salt';
+const ErrorTypes = require('./errors');
+const salt = require('./salt');
 
 const prisma = new PrismaClient();
 

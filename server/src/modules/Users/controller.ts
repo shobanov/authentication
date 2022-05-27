@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
-import { validationResult } from 'express-validator';
+const { Request, Response } = require('express');
+const validationResult = require('express-validator');
 
-import { Errors } from './errors';
+const Errors = require('./errors');
 const service = require('./service');
 
-export async function registration(req: Request, res: Response) {
+export async function registration(req: typeof Request, res: typeof Response) {
 	const { firstName, lastName, email, password } = req.body;
 	try {
 		const validationErrors = validationResult(req);
@@ -34,7 +34,7 @@ export async function registration(req: Request, res: Response) {
 	}
 }
 
-export async function login(req: Request, res: Response) {
+export async function login(req: typeof Request, res: typeof Response) {
 	const { email, password } = req.body;
 
 	try {
