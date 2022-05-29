@@ -1,10 +1,9 @@
 export enum ErrorTypes {
 	NotFound = 'NotFound',
 	WrongPassword = 'WrongPassword',
-	UserExist = 'UserExist',
 }
 
-export const Errors = new Map([
+const list = new Map([
 	[
 		ErrorTypes.NotFound,
 		{
@@ -19,11 +18,9 @@ export const Errors = new Map([
 			code: 401,
 		},
 	],
-	[
-		ErrorTypes.UserExist,
-		{
-			message: 'User already exist',
-			code: 409,
-		},
-	],
 ]);
+
+module.exports = {
+	list,
+	ErrorTypes,
+};
