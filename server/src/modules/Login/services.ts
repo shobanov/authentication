@@ -1,17 +1,10 @@
-require('dotenv').config();
 const { PrismaClient } = require('@prisma/client');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const { ErrorTypes } = require('./errors');
+const tokenService = require('../token-service/tokenService');
 
-const SALT = process.env.PASSWORD_SALT;
 const prisma = new PrismaClient();
-
-const generateAccessToken = (id?: string) => {
-	const payload = { id };
-	return jwt.sign(payload, SALT, { expiresIn: '24h' });
-};
 
 exports.login = async (email: string, password: string) => {
 	try {
@@ -27,7 +20,7 @@ exports.login = async (email: string, password: string) => {
 
 		if (!validPassword) return ErrorTypes.WrongPassword;
 
-		const token = generateAccessToken(user?.id);
+		const token = tokenService.generateAccessToken(user?.id);
 
 		return token;
 	} catch (e) {

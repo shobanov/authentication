@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 
 const ErrorTypes = require('./errors');
+const mailService = require('../mail-service/mailService');
+const tokenService = require('../token-service/tokenService');
 
 const prisma = new PrismaClient();
 
@@ -25,8 +27,7 @@ exports.registration = async (
 
 		const hashPassword = bcrypt.hashSync(password, 4);
 		const activationLink = uuid.v4();
-
-		return await prisma.user.create({
+		const user = await prisma.user.create({
 			data: {
 				firstName,
 				lastName,
@@ -35,6 +36,16 @@ exports.registration = async (
 				activationLink,
 			},
 		});
+		await mailService.sandActivationMail(email, activationLink);
+		const userDto = {
+			id: user.id,
+			email: user.email,
+			isActivated: user.isActivated,
+		};
+		const tokens = tokenService.generateTokens({ ...userDto });
+		await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+		return { ...tokens, user: userDto };
 	} catch (e) {
 		throw Error('USER_REGISTRATION_SERVICE_PROBLEM');
 	}
