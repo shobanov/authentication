@@ -53,3 +53,24 @@ exports.registration = async (
 		throw Error('USER_REGISTRATION_SERVICE_PROBLEM');
 	}
 };
+
+exports.activate = async (activationLink: string) => {
+	const user = await prisma.user.findFirst({
+		where: {
+			activationLink,
+		},
+	});
+
+	if (!user) {
+		throw new Error('invalid activation link');
+	}
+
+	await prisma.user.updateMany({
+		where: {
+			activationLink,
+		},
+		data: {
+			isActivated: true,
+		},
+	});
+};

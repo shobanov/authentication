@@ -41,4 +41,17 @@ exports.registration = async (req: express.Request, res: express.Response) => {
 	}
 };
 
-exports.activate = async () => {};
+exports.activate = async (
+	req: express.Request,
+	res: express.Response,
+	_next: express.NextFunction
+) => {
+	try {
+		const activationLink = req.params.link;
+		await services.activate(activationLink);
+
+		return res.redirect(String(process.env.CLIENT_URL));
+	} catch (e) {
+		console.log(e);
+	}
+};
