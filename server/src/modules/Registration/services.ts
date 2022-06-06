@@ -36,16 +36,19 @@ exports.registration = async (
 				activationLink,
 			},
 		});
-		await mailService.sandActivationMail(email, activationLink);
+		await mailService.sandActivationMail(
+			email,
+			`${process.env.API_URL}/activate/${activationLink}`
+		);
 		const userDto = {
 			id: user.id,
 			email: user.email,
 			isActivated: user.isActivated,
 		};
-		const tokens = tokenService.generateTokens({ ...userDto });
+		const tokens = await tokenService.generateTokens(userDto);
 		await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
-		return { ...tokens, user: userDto };
+		return { tokens, user: userDto };
 	} catch (e) {
 		throw Error('USER_REGISTRATION_SERVICE_PROBLEM');
 	}

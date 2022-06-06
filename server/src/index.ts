@@ -13,7 +13,6 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use('/', RegistrationRoutes, loginRoutes);
-// app.use('/', loginRoutes);
 
 const start = () => {
 	try {

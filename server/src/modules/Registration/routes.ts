@@ -1,4 +1,4 @@
-const express = require('express'); // ?
+const express = require('express');
 
 const validations = require('./validations');
 const controllers = require('./controllers');
@@ -10,6 +10,6 @@ router.post(
 	validations.registration,
 	controllers.registration
 );
-router.get('/activate/:code', controllers.activate);
+router.get('/activate/:link', controllers.activate);
 
 module.exports = router;

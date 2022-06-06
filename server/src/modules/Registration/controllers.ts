@@ -1,4 +1,4 @@
-import express = require('express');
+import express from 'express';
 const { validationResult } = require('express-validator');
 
 const services = require('./services');
@@ -28,6 +28,12 @@ exports.registration = async (req: express.Request, res: express.Response) => {
 
 			return res.status(error!.code).json({ message: error?.message });
 		}
+
+		res.cookie('refreshToken', data.refreshToken, {
+			maxAge: 30 * 24 * 60 * 60 * 1000,
+			httpOnly: true,
+		});
+
 		return res.status(201).json({ message: 'User successfully registered' });
 	} catch (e) {
 		console.log(e);
