@@ -1,29 +1,38 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcrypt');
 
-const { ErrorTypes } = require('./errors');
+import { UserDto } from '../dtos/user-dto';
+import { ApiError } from '../exceptions/api-error';
 const tokenService = require('../token-service/tokenService');
 
 const prisma = new PrismaClient();
 
 exports.login = async (email: string, password: string) => {
-	try {
-		const user = await prisma.user.findUnique({
-			where: {
-				email,
-			},
-		});
+	const user = await prisma.user.findUnique({
+		where: {
+			email,
+		},
+	});
 
-		if (!user) return ErrorTypes.NotFound;
-
-		const validPassword = await bcrypt.compare(password, user?.password);
-
-		if (!validPassword) return ErrorTypes.WrongPassword;
-
-		const token = tokenService.generateAccessToken(user?.id);
-
-		return token;
-	} catch (e) {
-		throw Error('LOGIN_SERVICE_PROBLEM');
+	if (!user) {
+		// return ErrorTypes.NotFound;
+		throw ApiError.BadRequest(`User with email address ${email} unregistered!`);
 	}
+
+	const isPassEquals = await bcrypt.compare(password, user?.password);
+
+	if (!isPassEquals) {
+		throw ApiError.BadRequest('Password is wrong!');
+	}
+
+	// const token = tokenService.generateTokens(user?.id);
+	// await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+	// return token;
+
+	const userDto = new UserDto(user);
+	const tokens = await tokenService.generateTokens({ userDto });
+	await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+	return { ...tokens, user: userDto };
 };

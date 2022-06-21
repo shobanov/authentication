@@ -1,11 +1,11 @@
 import { PrismaClient } from '@prisma/client';
 const jwt = require('jsonwebtoken');
 
-import { DtoType } from '../Registration/types';
+import { UserDtoType } from '../dtos/user-dto';
 
 const prisma = new PrismaClient();
 
-exports.generateTokens = async (payload: DtoType) => {
+exports.generateTokens = async (payload: UserDtoType) => {
 	const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_KEY, {
 		expiresIn: '30m',
 	});

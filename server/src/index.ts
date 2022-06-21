@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const cors = require('cors');
 
+const ErrorMiddleware = require('./modules/middlewares/error-middlewares');
 const RegistrationRoutes = require('./modules/Registration/routes');
 const loginRoutes = require('./modules/Login/routes');
 
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use('/', RegistrationRoutes, loginRoutes);
+app.use(ErrorMiddleware);
 
 const start = () => {
 	try {

@@ -8,5 +8,6 @@ exports.registration = [
 		.check('password', 'password must be at least 7 characters')
 		.isLength({
 			min: 7,
+			max: 32,
 		}),
 ];

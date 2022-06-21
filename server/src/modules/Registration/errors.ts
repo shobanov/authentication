@@ -1,8 +1,9 @@
 export enum ErrorTypes {
 	UserExist = 'UserExist',
+	InvalidActivationLink = 'InvalidActivationLink',
 }
 
-const list = new Map([
+export const errorlist = new Map([
 	[
 		ErrorTypes.UserExist,
 		{
@@ -10,9 +11,16 @@ const list = new Map([
 			code: 409,
 		},
 	],
+	[
+		ErrorTypes.InvalidActivationLink,
+		{
+			message: 'Invalid activation link',
+			code: 400,
+		},
+	],
 ]);
 
 module.exports = {
-	list,
+	errorlist,
 	ErrorTypes,
 };
