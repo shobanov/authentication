@@ -36,3 +36,8 @@ exports.login = async (email: string, password: string) => {
 
 	return { ...tokens, user: userDto };
 };
+
+exports.logout = async (refreshToken: string) => {
+	const token = await tokenService.removeToken(refreshToken);
+	return token;
+};

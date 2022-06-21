@@ -1,6 +1,5 @@
 import express = require('express');
 
-// const Errors = require('./errors');
 const services = require('./services');
 
 exports.login = async (
@@ -28,6 +27,22 @@ exports.login = async (
 			.json({ message: 'Authorization was successful', data });
 	} catch (e) {
 		next(e);
-		// return res.status(400).json({ message: 'Login error' });
+	}
+};
+
+exports.logout = async (
+	req: express.Request,
+	res: express.Response,
+	next: express.NextFunction
+) => {
+	try {
+		const { refreshToken } = req.cookies;
+		console.log(refreshToken, req);
+		const token = await services.logout(refreshToken);
+		res.clearCookie('refreshToken');
+
+		return res.status(200).json({ message: 'Logout successful', token });
+	} catch (e) {
+		next(e);
 	}
 };
