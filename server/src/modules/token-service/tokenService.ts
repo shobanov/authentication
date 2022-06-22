@@ -20,7 +20,7 @@ exports.generateTokens = async (payload: UserDtoType) => {
 };
 
 exports.saveToken = async (userId: string, refreshToken: string) => {
-	const tokenData = await prisma.token.findFirst({
+	const tokenData = await prisma.token.findUnique({
 		where: {
 			userId,
 		},
@@ -47,6 +47,36 @@ exports.saveToken = async (userId: string, refreshToken: string) => {
 
 exports.removeToken = async (refreshToken: string) => {
 	const tokenData = await prisma.token.deleteMany({
+		where: {
+			refreshToken,
+		},
+	});
+
+	return tokenData;
+};
+
+exports.validateAccessToken = async (token: string) => {
+	try {
+		const userData = jwt.veryfy(token, process.env.JWT_ACCESS_KEY);
+
+		return userData;
+	} catch (e) {
+		return null;
+	}
+};
+
+exports.validateRefreshToken = async (token: string) => {
+	try {
+		const userData = jwt.veryfy(token, process.env.JWT_REFRESH_KEY);
+
+		return userData;
+	} catch (e) {
+		return null;
+	}
+};
+
+exports.findToken = async (refreshToken: string) => {
+	const tokenData = await prisma.token.findUnique({
 		where: {
 			refreshToken,
 		},

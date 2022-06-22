@@ -37,11 +37,31 @@ exports.logout = async (
 ) => {
 	try {
 		const { refreshToken } = req.cookies;
-		console.log(refreshToken, req);
 		const token = await services.logout(refreshToken);
 		res.clearCookie('refreshToken');
 
 		return res.status(200).json({ message: 'Logout successful', token });
+	} catch (e) {
+		next(e);
+	}
+};
+
+exports.refresh = async (
+	req: express.Request,
+	res: express.Response,
+	next: express.NextFunction
+) => {
+	try {
+		const { refreshToken } = req.cookies;
+		const userData = await services.refreshToken(refreshToken);
+		res.cookie('refreshToken', userData.refreshToken, {
+			maxAge: 30 * 24 * 60 * 60 * 1000,
+			httpOnly: true,
+		});
+
+		return res
+			.status(200)
+			.json({ message: 'Token refresh successful', userData });
 	} catch (e) {
 		next(e);
 	}
