@@ -15,7 +15,6 @@ exports.login = async (email: string, password: string) => {
 	});
 
 	if (!user) {
-		// return ErrorTypes.NotFound;
 		throw ApiError.BadRequest(`User with email address ${email} unregistered!`);
 	}
 
@@ -24,11 +23,6 @@ exports.login = async (email: string, password: string) => {
 	if (!isPassEquals) {
 		throw ApiError.BadRequest('Password is wrong!');
 	}
-
-	// const token = tokenService.generateTokens(user?.id);
-	// await tokenService.saveToken(userDto.id, tokens.refreshToken);
-
-	// return token;
 
 	const userDto = new UserDto(user);
 	const tokens = await tokenService.generateTokens({ userDto });
