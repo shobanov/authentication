@@ -12,11 +12,6 @@ exports.login = async (
 	try {
 		const data = await services.login(email, password);
 
-		// if (Errors.list.has(data)) {
-		// 	const error = Errors.list.get(data);
-
-		// 	return res.status(error!.code).json(error);
-		// }
 		res.cookie('refreshToken', data.refreshToken, {
 			maxAge: 30 * 24 * 60 * 60 * 1000,
 			httpOnly: true,

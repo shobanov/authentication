@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 import { UserDto } from '../dtos/user-dto';
 import { ApiError } from '../exceptions/api-error';
-const tokenService = require('../token-service/tokenService');
+const tokenService = require('../Tokens/tokenService');
 
 const prisma = new PrismaClient();
 

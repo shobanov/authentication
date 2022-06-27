@@ -2,9 +2,8 @@ import { PrismaClient } from '@prisma/client';
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 
-// import { ErrorTypes } from './errors';
-const mailService = require('../mail-service/mailService');
-const tokenService = require('../token-service/tokenService');
+const mailService = require('../Mail/mailService');
+const tokenService = require('../Tokens/tokenService');
 import { UserDto } from '../dtos/user-dto';
 import { ApiError } from '../exceptions/api-error';
 
@@ -25,7 +24,6 @@ exports.registration = async (
 	});
 
 	if (condidate) {
-		// return ErrorTypes.UserExist;
 		throw ApiError.BadRequest(
 			`user with email address ${email} already exists`
 		);
@@ -61,7 +59,6 @@ exports.activate = async (activationLink: string) => {
 	});
 
 	if (!user) {
-		// return ErrorTypes.InvalidActivationLink;
 		throw ApiError.BadRequest('Invalid activation link');
 	}
 

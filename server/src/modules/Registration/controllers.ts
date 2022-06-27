@@ -1,12 +1,11 @@
 import express from 'express';
 const { validationResult } = require('express-validator');
 
-// import { errorlist } from './errors';
 const services = require('./services');
 
 exports.registration = async (
-	req: express.Request,
 	res: express.Response,
+	req: express.Request,
 	next: express.NextFunction
 ) => {
 	const { firstName, lastName, email, password } = req.body;
@@ -27,18 +26,14 @@ exports.registration = async (
 			password
 		);
 
-		// if (errorlist.has(data)) {
-		// 	const error = errorlist.get(data);
-
-		// 	return res.status(error!.code).json({ message: error?.message });
-		// }
-
 		res.cookie('refreshToken', data.refreshToken, {
 			maxAge: 30 * 24 * 60 * 60 * 1000,
 			httpOnly: true,
 		});
 
-		return res.status(201).json({ message: 'User successfully registered' });
+		return res.status(201).json({
+			message: `The user has been successfully registered, to confirm the registration, follow the link that we sent to e-mail ${email}`,
+		});
 	} catch (e) {
 		next(e);
 	}
@@ -53,16 +48,8 @@ exports.activate = async (
 		const activationLink = req.params.link;
 		await services.activate(activationLink);
 
-		// if (errorlist.has(data)) {
-		// 	const error = errorlist.get(data);
-
-		// 	return res.status(error!.code).json({ message: error?.message });
-		// }
-
 		return res.redirect(String(process.env.CLIENT_URL));
 	} catch (e) {
 		next(e);
-		// console.log(e);
-		// return res.status(400).json({ message: 'Account activation error' });
 	}
 };
