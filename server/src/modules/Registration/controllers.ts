@@ -4,13 +4,14 @@ const { validationResult } = require('express-validator');
 const services = require('./services');
 
 exports.registration = async (
-	res: express.Response,
 	req: express.Request,
+	res: express.Response,
 	next: express.NextFunction
 ) => {
-	const { firstName, lastName, email, password } = req.body;
-
 	try {
+		console.log(req.body);
+
+		const { firstName, lastName, email, password } = req.body;
 		const validationErrors = validationResult(req);
 
 		if (!validationErrors.isEmpty()) {

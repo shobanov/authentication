@@ -3,7 +3,7 @@ import express from 'express';
 import { ApiError } from '../exceptions/api-error';
 const tokenService = require('../Tokens/tokenService');
 
-module.exports = function (
+module.exports = async function (
 	req: express.Request,
 	_res: express.Response,
 	next: express.NextFunction
@@ -11,17 +11,22 @@ module.exports = function (
 	try {
 		const authorizationHeader = req.headers.authorization;
 
-		if (!authorizationHeader) throw ApiError.UnauthorizedError();
+		if (!authorizationHeader) {
+			return next(ApiError.UnauthorizedError());
+		}
 
 		const accessToken = authorizationHeader.split(' ')[1];
 
-		if (!accessToken) throw ApiError.UnauthorizedError();
+		if (!accessToken) {
+			return next(ApiError.UnauthorizedError());
+		}
 
-		const userData = tokenService.validateAccessToken(accessToken);
+		const userData = await tokenService.validateAccessToken(accessToken);
 
-		if (!userData) throw ApiError.UnauthorizedError();
+		if (!userData) {
+			return next(ApiError.UnauthorizedError());
+		}
 
-		// req.user = userData;
 		next();
 	} catch (e) {
 		return next(ApiError.UnauthorizedError());

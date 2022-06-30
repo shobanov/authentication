@@ -1,11 +1,11 @@
 import { PrismaClient } from '@prisma/client';
 const jwt = require('jsonwebtoken');
 
-import { UserDtoType } from '../dtos/user-dto';
+import { UserDto } from '../dtos/user-dto';
 
 const prisma = new PrismaClient();
 
-exports.generateTokens = async (payload: UserDtoType) => {
+exports.generateTokens = async (payload: UserDto) => {
 	const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_KEY, {
 		expiresIn: '30m',
 	});
@@ -57,7 +57,7 @@ exports.removeToken = async (refreshToken: string) => {
 
 exports.validateAccessToken = async (token: string) => {
 	try {
-		const userData = jwt.veryfy(token, process.env.JWT_ACCESS_KEY);
+		const userData = jwt.verify(token, process.env.JWT_ACCESS_KEY);
 
 		return userData;
 	} catch (e) {
@@ -67,7 +67,7 @@ exports.validateAccessToken = async (token: string) => {
 
 exports.validateRefreshToken = async (token: string) => {
 	try {
-		const userData = jwt.veryfy(token, process.env.JWT_REFRESH_KEY);
+		const userData = jwt.verify(token, process.env.JWT_REFRESH_KEY);
 
 		return userData;
 	} catch (e) {

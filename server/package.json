@@ -48,6 +48,9 @@
 		"schema": "src/Prisma/schema.prisma"
 	},
 	"devDependencies": {
-		"prisma": "^3.14.0"
+		"@swc/core": "^1.2.207",
+		"@swc/helpers": "^0.4.3",
+		"prisma": "^3.14.0",
+		"regenerator-runtime": "^0.13.9"
 	}
 }

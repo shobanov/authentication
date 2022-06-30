@@ -14,13 +14,13 @@ model User {
   lastName       String
   email          String   @unique
   password       String
-  token          Token?
+  token          Token?   
   isActivated    Boolean  @default(false)
   activationLink String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 }
 
 model Token {
   user         User    @relation(fields: [userId], references: [id])
-  userId       String  
+  userId       String  @unique
   refreshToken String  @unique
 }
