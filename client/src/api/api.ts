@@ -4,10 +4,11 @@ import {
 	LoginDataType,
 	RegisterDataType,
 	ResponseUserDataType,
-} from '../interfaces/types';
+} from '../types/types';
 
 const instance = axios.create({
 	baseURL: 'https://localhost:5000/',
+	withCredentials: true,
 });
 
 export const loginApi = {

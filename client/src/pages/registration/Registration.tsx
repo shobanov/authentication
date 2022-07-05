@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import nookies from 'nookies';
 
 import { registerApi } from '../../api';
-import { RegisterDataType } from '../../interfaces/types';
+import { RegisterDataType } from '../../types/types';
 import { Button, Checkbox, Input, Title } from '../../components';
 import {
 	RegistrationForm,

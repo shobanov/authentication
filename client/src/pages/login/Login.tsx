@@ -3,7 +3,7 @@ import nookies from 'nookies';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { loginApi } from '../../api';
-import { LoginDataType } from '../../interfaces/types';
+import { LoginDataType } from '../../types/types';
 import { Button, Checkbox, Input, Title } from '../../components';
 import { AuthForm, AuthWrapper, LinkRouterDom, Nav } from './styles';
 
