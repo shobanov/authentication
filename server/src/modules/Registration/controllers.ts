@@ -9,8 +9,6 @@ exports.registration = async (
 	next: express.NextFunction
 ) => {
 	try {
-		console.log(req.body);
-
 		const { firstName, lastName, email, password } = req.body;
 		const validationErrors = validationResult(req);
 
