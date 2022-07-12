@@ -1,41 +1,78 @@
-import { AppDispatch } from '../store';
-import { loginSlice, registrationSlice, statusSlice } from '../slices';
-import * as AuthService from '../../services/AuthService';
-import { RegisterDtoType } from '../../types';
+// import { AppDispatch } from '../store';
+// import { loginSlice, registrationSlice, statusSlice } from '../slices';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const registration =
-	() => async (dispatch: AppDispatch, dto: RegisterDtoType) => {
+import * as AuthService from '../../services/AuthService';
+import { LoginDto, RegisterDto } from '../../types';
+
+export const registration = createAsyncThunk(
+	'user/registration',
+	async (dto: RegisterDto, thunkAPI) => {
 		try {
-			dispatch(statusSlice.action.pending);
 			const response = await AuthService.registration(dto);
 			localStorage.setItem('token', response.data.accessToken);
-			dispatch(registrationSlice.actions.registration(response.data.user));
+			return response.data;
 		} catch (e) {
-			dispatch(statusSlice.actions.error(e.response?.data?.message));
+			return thunkAPI.rejectWithValue('registration error');
 		}
-	};
+	}
+);
 
-export const login =
-	() => async (dispatch: AppDispatch, email: string, password: string) => {
+export const login = createAsyncThunk(
+	'user/login',
+	async (dto: LoginDto, thunkAPI) => {
 		try {
-			dispatch(statusSlice.action.pending);
-			const response = await AuthService.login(email, password);
+			const response = await AuthService.login(dto);
 			localStorage.setItem('token', response.data.accessToken);
-			dispatch(loginSlice.actions.login(response.data.user));
-			dispatch(statusSlice.actions.success());
+			return response.data;
 		} catch (e) {
-			dispatch(statusSlice.actions.error(e.response?.data?.message));
+			return thunkAPI.rejectWithValue('login error');
 		}
-	};
+	}
+);
 
-export const logout = () => async (dispatch: AppDispatch) => {
+export const logout = createAsyncThunk('user/logout', async (_, thunkAPI) => {
 	try {
-		dispatch(statusSlice.action.statusPending);
 		await AuthService.logout();
 		localStorage.removeItem('token');
-		dispatch(loginSlice.actions.logout());
-		dispatch(statusSlice.actions.success());
 	} catch (e) {
-		dispatch(statusSlice.actions.error(e.response?.data?.message));
+		return thunkAPI.rejectWithValue('logout error');
 	}
-};
+});
+
+// export const registration =
+// 	() => async (dispatch: AppDispatch, dto: RegisterDtoType) => {
+// 		try {
+// 			dispatch(statusSlice.actions.pending);
+// 			const response = await AuthService.registration(dto);
+// 			localStorage.setItem('token', response.data.accessToken);
+// 			dispatch(registrationSlice.actions.registration(response.data.user));
+// 		} catch (e) {
+// 			dispatch(statusSlice.actions.error(e.response?.data?.message));
+// 		}
+// 	};
+
+// export const login =
+// 	() => async (dispatch: AppDispatch, email: string, password: string) => {
+// 		try {
+// 			dispatch(statusSlice.actions.pending);
+// 			const response = await AuthService.login(email, password);
+// 			localStorage.setItem('token', response.data.accessToken);
+// 			dispatch(loginSlice.actions.login(response.data.user));
+// 			dispatch(statusSlice.actions.success());
+// 		} catch (e) {
+// 			dispatch(statusSlice.actions.error(e.response?.data?.message));
+// 		}
+// 	};
+
+// export const logout = () => async (dispatch: AppDispatch) => {
+// 	try {
+// 		dispatch(statusSlice.actions.pending);
+// 		await AuthService.logout();
+// 		localStorage.removeItem('token');
+// 		dispatch(loginSlice.actions.logout());
+// 		dispatch(statusSlice.actions.success());
+// 	} catch (e) {
+// 		dispatch(statusSlice.actions.error(e.response?.data?.message));
+// 	}
+// };

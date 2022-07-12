@@ -1,29 +1,50 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { IUser } from '../../types';
+import { login, logout } from '../actions/AuthActions';
 
 interface LoginState {
 	user?: IUser;
 	isAuth: boolean;
+	isLoading: boolean;
+	error: string;
 }
 
 const initialState: LoginState = {
-	user: undefined,
+	user: {} as IUser,
 	isAuth: false,
+	isLoading: false,
+	error: '',
 };
 
-const loginSlice = createSlice({
+export const loginSlice = createSlice({
 	name: 'login',
 	initialState,
-	reducers: {
-		login(state, action: PayloadAction<IUser>) {
+	reducers: {},
+	extraReducers: {
+		[login.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
+			state.isLoading = false;
+			state.error = '';
 			state.user = action.payload;
-			state.isAuth = true;
 		},
-		logout(state) {
-			state.user = undefined;
-			state.isAuth = false;
+		[login.pending.type]: state => {
+			state.isLoading = true;
+		},
+		[login.rejected.type]: (state, action: PayloadAction<string>) => {
+			state.isLoading = false;
+			state.error = action.payload;
+		},
+		[logout.fulfilled.type]: state => {
+			state.isLoading = false;
+			state.error = '';
+			state.user = {} as IUser;
+		},
+		[logout.pending.type]: state => {
+			state.isLoading = true;
+		},
+		[logout.rejected.type]: (state, action: PayloadAction<string>) => {
+			state.isLoading = false;
+			state.error = action.payload;
 		},
 	},
 });
-
-export default loginSlice.reducer;

@@ -8,10 +8,10 @@ import {
 
 const store = configureStore({
 	reducer: {
-		login: loginSlice,
-		registration: registrationSlice,
-		user: userSlice,
-		status: statusSlice,
+		login: loginSlice.reducer,
+		registration: registrationSlice.reducer,
+		user: userSlice.reducer,
+		status: statusSlice.reducer,
 	},
 });
 

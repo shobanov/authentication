@@ -1,14 +1,15 @@
-import { AppDispatch } from '../store';
-import { userSlice, statusSlice } from '../slices';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import * as UserService from '../../services/UserService';
 
-export const fetchUsers = () => async (dispatch: AppDispatch) => {
-	try {
-		dispatch(statusSlice.action.pending);
-		await UserService.fetchUsers();
-		dispatch(userSlice.actions.usersFetch());
-		dispatch(statusSlice.actions.success());
-	} catch (e) {
-		dispatch(statusSlice.actions.error(e.response?.data?.message));
+export const fetchUsers = createAsyncThunk(
+	'user/fetchAll',
+	async (_, thunkAPI) => {
+		try {
+			const response = await UserService.fetchUsers();
+			return response.data;
+		} catch (e) {
+			return thunkAPI.rejectWithValue('failed to load users');
+		}
 	}
-};
+);

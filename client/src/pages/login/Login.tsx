@@ -2,8 +2,6 @@ import { FC, useState } from 'react';
 import nookies from 'nookies';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-// import { loginApi } from '../../api';
-// import { LoginDataType } from '../../types';
 import { Button, Checkbox, Input, Title } from '../../components';
 import { AuthForm, AuthWrapper, LinkRouterDom, Nav } from './styles';
 

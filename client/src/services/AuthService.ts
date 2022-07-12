@@ -1,18 +1,17 @@
 import { AxiosResponse } from 'axios';
 import { instance } from '../api';
-import { AuthResponseType, RegisterDtoType } from '../types';
+import { AuthResponse, LoginDto, RegisterDto } from '../types';
 
 export const login = async (
-	email: string,
-	password: string
-): Promise<AxiosResponse<AuthResponseType>> => {
-	return instance.post<AuthResponseType>('login', { email, password });
+	dto: LoginDto
+): Promise<AxiosResponse<AuthResponse>> => {
+	return instance.post<AuthResponse>('login', dto);
 };
 
 export const registration = async (
-	dto: RegisterDtoType
-): Promise<AxiosResponse<AuthResponseType>> => {
-	return instance.post<AuthResponseType>('registration', dto);
+	dto: RegisterDto
+): Promise<AxiosResponse<AuthResponse>> => {
+	return instance.post<AuthResponse>('registration', dto);
 };
 
 export const logout = async (): Promise<void> => {

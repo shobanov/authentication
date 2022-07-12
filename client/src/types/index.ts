@@ -4,15 +4,20 @@ export interface IUser {
 	isActivated: boolean;
 }
 
-export type AuthResponseType = {
+export type AuthResponse = {
 	accessToken: string;
 	refreshToken: string;
 	user: IUser;
 };
 
-export type RegisterDtoType = {
+export type RegisterDto = {
 	firstName: string;
 	lastName: string;
 	email: string;
 	password: string;
 };
+
+export interface LoginDto {
+	email: string;
+	password: string;
+}
