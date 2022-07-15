@@ -3,14 +3,9 @@ import { FC } from 'react';
 import { TitleStyled } from './styles';
 
 interface IProps {
-  title: string;
-};
+	title: string;
+}
 
 export const Title: FC<IProps> = ({ title }) => {
-  
-  return (
-    <TitleStyled>
-      { title }
-    </TitleStyled>
-  );
+	return <TitleStyled>{title}</TitleStyled>;
 };

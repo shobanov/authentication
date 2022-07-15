@@ -1,32 +1,17 @@
-import { FC, useState } from 'react';
-import nookies from 'nookies';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { Button, Checkbox, Input, Title } from '../../components';
+import { LoginDto } from '../../types';
 import { AuthForm, AuthWrapper, LinkRouterDom, Nav } from './styles';
 
 export const Login: FC = () => {
-	const [errorMessage, setErrorMessage] = useState<string | null>(null);
-	const { register, handleSubmit, formState } = useForm<LoginDataType>();
-	const onSubmit: SubmitHandler<LoginDataType> = async (dto: LoginDataType) => {
-		try {
-			const data = await loginApi.login(dto);
-			nookies.set(null, 'token', data.token, {
-				maxAge: 30 * 24 * 60 * 60,
-				path: '/',
-			});
-		} catch (err) {
-			console.warn('Login error', err);
-			if (err.response) {
-				setErrorMessage(err.data.response.message);
-			}
-		}
-	};
+	const { register, formState } = useForm<LoginDto>();
 
 	return (
 		<AuthWrapper>
 			<Title title='Sign in' />
-			<AuthForm onSubmit={handleSubmit(onSubmit)}>
+			<AuthForm>
 				<Input
 					type='email'
 					placeholder='Email Address *'
@@ -37,13 +22,12 @@ export const Login: FC = () => {
 					placeholder='Password *'
 					{...register('password')}
 				/>
-				<Checkbox label='Remember me' {...register('rememberMe')} />
+				<Checkbox label='Remember me' />
 				<Button
-					isDisabled={!formState.isValid || formState.isSubmitting}
+					disabled={!formState.isValid || formState.isSubmitting}
 					title='SIGN IN'
 					type='submit'
 				/>
-				{errorMessage && 'Need to insert a worning!'}
 				<Nav>
 					<LinkRouterDom to='/forgot_password'>Forgot password?</LinkRouterDom>
 					<LinkRouterDom to='/registration'>

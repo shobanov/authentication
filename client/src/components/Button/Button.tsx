@@ -5,13 +5,13 @@ import { ButtonStyled } from './styles';
 interface IProps {
 	title: string;
 	type: 'button' | 'reset' | 'submit';
-	isDisabled?: boolean;
+	disabled?: boolean;
 }
 
 export const Button = forwardRef<HTMLButtonElement, IProps>(
-	({ title, type, isDisabled }, ref) => {
+	({ title, type, disabled }, ref) => {
 		return (
-			<ButtonStyled ref={ref} {...type} disabled={isDisabled}>
+			<ButtonStyled ref={ref} type={type}>
 				{title}
 			</ButtonStyled>
 		);

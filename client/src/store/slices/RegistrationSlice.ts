@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IUser } from '../../types';
-import { registration } from '../actions/AuthActions';
+import * as AuthAC from '../action-creators/AuthAC';
 
 interface RegistrationState {
 	user?: IUser;
@@ -22,15 +22,21 @@ export const registrationSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: {
-		[registration.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
+		[AuthAC.registration.fulfilled.type]: (
+			state,
+			action: PayloadAction<IUser>
+		) => {
 			state.isLoading = false;
 			state.error = '';
 			state.user = action.payload;
 		},
-		[registration.pending.type]: state => {
+		[AuthAC.registration.pending.type]: state => {
 			state.isLoading = true;
 		},
-		[registration.rejected.type]: (state, action: PayloadAction<string>) => {
+		[AuthAC.registration.rejected.type]: (
+			state,
+			action: PayloadAction<string>
+		) => {
 			state.isLoading = false;
 			state.error = action.payload;
 		},

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IUser } from '../../types';
-import { login, logout } from '../actions/AuthActions';
+import * as AuthAC from '../action-creators/AuthAC';
 
 interface LoginState {
 	user?: IUser;
@@ -22,27 +22,27 @@ export const loginSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: {
-		[login.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
+		[AuthAC.login.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
 			state.isLoading = false;
 			state.error = '';
 			state.user = action.payload;
 		},
-		[login.pending.type]: state => {
+		[AuthAC.login.pending.type]: state => {
 			state.isLoading = true;
 		},
-		[login.rejected.type]: (state, action: PayloadAction<string>) => {
+		[AuthAC.login.rejected.type]: (state, action: PayloadAction<string>) => {
 			state.isLoading = false;
 			state.error = action.payload;
 		},
-		[logout.fulfilled.type]: state => {
+		[AuthAC.logout.fulfilled.type]: state => {
 			state.isLoading = false;
 			state.error = '';
 			state.user = {} as IUser;
 		},
-		[logout.pending.type]: state => {
+		[AuthAC.logout.pending.type]: state => {
 			state.isLoading = true;
 		},
-		[logout.rejected.type]: (state, action: PayloadAction<string>) => {
+		[AuthAC.logout.rejected.type]: (state, action: PayloadAction<string>) => {
 			state.isLoading = false;
 			state.error = action.payload;
 		},

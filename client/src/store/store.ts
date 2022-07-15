@@ -1,17 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {
-	loginSlice,
-	registrationSlice,
-	statusSlice,
-	userSlice,
-} from './slices';
+import { loginSlice, registrationSlice, userSlice } from './slices';
 
-const store = configureStore({
+export const store = configureStore({
 	reducer: {
 		login: loginSlice.reducer,
 		registration: registrationSlice.reducer,
 		user: userSlice.reducer,
-		status: statusSlice.reducer,
 	},
 });
 

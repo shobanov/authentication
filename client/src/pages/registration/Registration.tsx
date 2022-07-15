@@ -1,10 +1,11 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import nookies from 'nookies';
 
-import { registerApi } from '../../api';
-import { RegisterDataType } from '../../types/types';
 import { Button, Checkbox, Input, Title } from '../../components';
+import { schema } from './validation';
+// import * as AuthAC from '../../store/action-creators/AuthAC';
+import { RegisterDto } from '../../types';
 import {
 	RegistrationForm,
 	LinkRouterDom,
@@ -14,26 +15,16 @@ import {
 } from './styles';
 
 export const Registration: FC = () => {
-	const [errorMessage, setErrorMessage] = useState<string | null>(null);
-	const { register, handleSubmit, formState } = useForm<RegisterDataType>();
-	const onSubmit: SubmitHandler<RegisterDataType> = async (
-		dto: RegisterDataType
-	) => {
-		try {
-			const data = await registerApi.register(dto);
-			console.log(data);
-			nookies.set(null, 'token', data.token, {
-				maxAge: 30 * 24 * 60 * 60,
-				path: '/',
-			});
-			setErrorMessage(null);
-		} catch (err) {
-			console.warn('Registration error', err);
-			if (err.response) {
-				setErrorMessage(err.data.response.message);
-			}
-		}
-	};
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<RegisterDto>({
+		resolver: yupResolver(schema),
+	});
+	const onSubmit: SubmitHandler<RegisterDto> = data => console.log(data);
+
+	// AuthAC.registration(data)
 
 	return (
 		<RegistrationWrapper>
@@ -43,31 +34,30 @@ export const Registration: FC = () => {
 					<Input
 						type='text'
 						placeholder='First Name *'
+						validationError={errors.firstName?.message}
 						{...register('firstName')}
 					/>
 					<Input
 						type='text'
 						placeholder='Last Name *'
+						validationError={errors.lastName?.message}
 						{...register('lastName')}
 					/>
 				</NameContainer>
 				<Input
-					type='email'
+					type='text'
 					placeholder='Email Address *'
+					validationError={errors.email?.message}
 					{...register('email')}
 				/>
 				<Input
 					type='password'
 					placeholder='Password *'
+					validationError={errors.password?.message}
 					{...register('password')}
 				/>
 				<Checkbox label='I want to receive inspiration, marketing promotions and updates via email.' />
-				<Button
-					isDisabled={!formState.isValid || formState.isSubmitting}
-					title='SIGN UP'
-					type='submit'
-				/>
-				{errorMessage && 'Need to insert a worning!'}
+				<Button title='SIGN UP' type='submit' />
 				<Nav>
 					<LinkRouterDom to='/auth'>
 						Already have an account? Sign in
