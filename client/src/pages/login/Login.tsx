@@ -1,33 +1,40 @@
 import { FC } from 'react';
-import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { Button, Checkbox, Input, Title } from '../../components';
+import { schema } from './validation';
 import { LoginDto } from '../../types';
+import { Button, Checkbox, Input, Title } from '../../components';
 import { AuthForm, AuthWrapper, LinkRouterDom, Nav } from './styles';
 
 export const Login: FC = () => {
-	const { register, formState } = useForm<LoginDto>();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<LoginDto>({
+		resolver: yupResolver(schema),
+	});
+	const onSubmit: SubmitHandler<LoginDto> = data => console.log(data);
 
 	return (
 		<AuthWrapper>
 			<Title title='Sign in' />
-			<AuthForm>
+			<AuthForm onSubmit={handleSubmit(onSubmit)}>
 				<Input
 					type='email'
 					placeholder='Email Address *'
+					validationError={errors.email?.message}
 					{...register('email')}
 				/>
 				<Input
 					type='password'
 					placeholder='Password *'
+					validationError={errors.password?.message}
 					{...register('password')}
 				/>
 				<Checkbox label='Remember me' />
-				<Button
-					disabled={!formState.isValid || formState.isSubmitting}
-					title='SIGN IN'
-					type='submit'
-				/>
+				<Button title='SIGN IN' type='submit' />
 				<Nav>
 					<LinkRouterDom to='/forgot_password'>Forgot password?</LinkRouterDom>
 					<LinkRouterDom to='/registration'>
