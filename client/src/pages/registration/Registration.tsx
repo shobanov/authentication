@@ -1,11 +1,11 @@
-import { FC } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { Button, Checkbox, Input, Title } from '../../components';
 import { schema } from './validation';
-// import * as AuthAC from '../../store/action-creators/AuthAC';
 import { RegisterDto } from '../../types';
+import * as AuthAC from '../../store/action-creators/AuthAC';
+import { Button, Checkbox, Input, Title } from '../../components';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import {
 	RegistrationForm,
 	LinkRouterDom,
@@ -14,7 +14,11 @@ import {
 	RegistrationWrapper,
 } from './styles';
 
-export const Registration: FC = () => {
+export const Registration = () => {
+	const dispatch = useAppDispatch();
+	const { isLoading, isAuth, error } = useAppSelector(
+		state => state.registration
+	);
 	const {
 		register,
 		handleSubmit,
@@ -22,9 +26,9 @@ export const Registration: FC = () => {
 	} = useForm<RegisterDto>({
 		resolver: yupResolver(schema),
 	});
-	const onSubmit: SubmitHandler<RegisterDto> = data => console.log(data);
-
-	// AuthAC.registration(data)
+	const onSubmit: SubmitHandler<RegisterDto> = data => {
+		dispatch(AuthAC.registration(data));
+	};
 
 	return (
 		<RegistrationWrapper>

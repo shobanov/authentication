@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const InputStiled = styled.input`
+export const InputStyled = styled.input`
 	height: 40px;
 	width: -webkit-fill-available;
 	margin-bottom: 20px;

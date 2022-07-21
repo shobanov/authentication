@@ -1,21 +1,21 @@
 import { forwardRef } from 'react';
 
 import { ValidationError } from '../ValidationError';
-import { InputStiled, InputWrapper } from './styles';
+import { InputStyled, InputWrapper } from './styles';
 
-interface IProps {
+interface InputProps {
 	type: 'email' | 'text' | 'password' | 'submit';
 	name: string;
 	placeholder: string;
 	validationError?: string;
 }
 
-export const Input = forwardRef<HTMLInputElement, IProps>((props, ref) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 	return (
 		<InputWrapper>
-			<InputStiled {...props} ref={ref}></InputStiled>
+			<InputStyled {...props} ref={ref} />
 			{props.validationError && (
-				<ValidationError text={props.validationError}></ValidationError>
+				<ValidationError text={props.validationError} />
 			)}
 		</InputWrapper>
 	);

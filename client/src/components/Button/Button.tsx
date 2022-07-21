@@ -2,14 +2,14 @@ import { forwardRef } from 'react';
 
 import { ButtonStyled } from './styles';
 
-interface IProps {
+interface ButtonProps {
 	title: string;
 	type: 'button' | 'reset' | 'submit';
 	disabled?: boolean;
 }
 
-export const Button = forwardRef<HTMLButtonElement, IProps>(
-	({ title, type, disabled }, ref) => {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+	({ title, type }, ref) => {
 		return (
 			<ButtonStyled ref={ref} type={type}>
 				{title}

@@ -18,20 +18,21 @@ exports.registration = async (
 				.json({ message: 'Invalid validation', validationErrors });
 		}
 
-		const data = await services.registration(
+		const userData = await services.registration(
 			firstName,
 			lastName,
 			email,
 			password
 		);
 
-		res.cookie('refreshToken', data.refreshToken, {
+		res.cookie('refreshToken', userData.refreshToken, {
 			maxAge: 30 * 24 * 60 * 60 * 1000,
 			httpOnly: true,
 		});
 
 		return res.status(201).json({
 			message: `The user has been successfully registered, to confirm the registration, follow the link that we sent to e-mail ${email}`,
+			userData,
 		});
 	} catch (e) {
 		next(e);

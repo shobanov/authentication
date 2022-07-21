@@ -1,11 +1,9 @@
-import { FC } from 'react';
-
 import { ErrorStyled } from './styles';
 
-interface IProps {
-	text: string | undefined;
+interface ValidationErrorProps {
+	text?: string;
 }
 
-export const ValidationError: FC<IProps> = ({ text }) => {
-	return <ErrorStyled>{text}</ErrorStyled>;
-};
+export const ValidationError = ({ text }: ValidationErrorProps) => (
+	<ErrorStyled>{text}</ErrorStyled>
+);

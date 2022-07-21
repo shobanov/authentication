@@ -1,11 +1,9 @@
-import { FC } from 'react';
-
 import { TitleStyled } from './styles';
 
-interface IProps {
+interface TitleProps {
 	title: string;
 }
 
-export const Title: FC<IProps> = ({ title }) => {
+export const Title = ({ title }: TitleProps) => {
 	return <TitleStyled>{title}</TitleStyled>;
 };
