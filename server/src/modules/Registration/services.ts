@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 
-const mailService = require('../Mail/mailService');
+const mailService = require('../Mail/yandexService');
 const tokenService = require('../Tokens/tokenService');
 import { UserDto } from '../dtos/user-dto';
 import { ApiError } from '../exceptions/api-error';
