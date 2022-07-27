@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 const StyledRoot = styled.div`
@@ -30,11 +29,11 @@ code {
 }
 `;
 
-interface IProps {
+interface RootProps {
 	children: React.ReactNode;
 }
 
-export const Root: FC<IProps> = ({ children }) => {
+export const Root = ({ children }: RootProps) => {
 	return (
 		<>
 			<GlobalStyles />

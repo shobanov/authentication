@@ -1,5 +1,7 @@
 import nodemailer from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
+const hbs = require('nodemailer-express-handlebars');
+const path = require('path');
 
 exports.sandActivationMail = async (to: string, link: string) => {
 	const transporter = nodemailer.createTransport({
@@ -12,17 +14,24 @@ exports.sandActivationMail = async (to: string, link: string) => {
 		},
 	} as SMTPTransport.Options);
 
+	const handlebarOptions = {
+		viewEngine: {
+			partialsDir: path.resolve('./views/'),
+			defaultLayout: false,
+		},
+		viewPath: path.resolve('./views/'),
+	};
+
+	transporter.use('compile', hbs(handlebarOptions));
+
 	const mailOptions = {
 		from: process.env.YANDEX_SMTP_USER,
 		to,
-		subject: `Account activation for ${to}`,
-		text: '',
-		html: `
-        <div>
-          <h1>link to confirm registration</h1>
-          <a href="${link}">${link}</a>
-        </div>
-      `,
+		subject: 'Account activation',
+		template: 'email',
+		context: {
+			link,
+		},
 	};
 
 	await transporter.sendMail(mailOptions);
