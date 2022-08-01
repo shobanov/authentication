@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { Button, Input, Title } from '../../components';
+import { Button, Input } from '../../components';
 import { PasswordRecoveryForm, PasswordRecoveryWrapper } from './styles';
 
 type Inputs = { email: string };
@@ -11,14 +11,17 @@ export const PasswordRecovery = () => {
 
 	return (
 		<PasswordRecoveryWrapper>
-			<Title title='Enter the email address associated with your account. Password reset instructions will be sent via email.' />
+			<h2>
+				Enter the email address associated with your account. Password reset
+				instructions will be sent via email.
+			</h2>
 			<PasswordRecoveryForm onSubmit={handleSubmit(onSubmit)}>
 				<Input
 					type='email'
 					placeholder='Email address'
 					{...register('email')}
 				/>
-				<Button title='Email me the instructions' type='submit' />
+				<Button title='recover password' type='submit' />
 			</PasswordRecoveryForm>
 		</PasswordRecoveryWrapper>
 	);

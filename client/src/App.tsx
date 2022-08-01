@@ -1,10 +1,9 @@
-import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { Registration, Login, PasswordRecovery } from './pages';
+import { Registration, Login, PasswordRecovery, Greeting } from './pages';
 import { Root } from './Root';
 
-export const App: FC = () => {
+export const App = () => {
 	return (
 		<Root>
 			<Routes>
@@ -12,6 +11,7 @@ export const App: FC = () => {
 				<Route path='/auth' element={<Login />} />
 				<Route path='/registration' element={<Registration />} />
 				<Route path='/forgot_password' element={<PasswordRecovery />} />
+				<Route path='/greeting' element={<Greeting />} />
 			</Routes>
 		</Root>
 	);

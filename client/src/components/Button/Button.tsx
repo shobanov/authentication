@@ -11,11 +11,9 @@ interface ButtonProps {
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 	({ title, type }, ref) => {
 		return (
-			<>
-				<ButtonStyled ref={ref} type={type}>
-					{title}
-				</ButtonStyled>
-			</>
+			<ButtonStyled ref={ref} type={type}>
+				{title}
+			</ButtonStyled>
 		);
 	}
 );

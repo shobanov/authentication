@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const AuthWrapper = styled.div`
 	display: flex;
@@ -9,21 +9,24 @@ export const AuthWrapper = styled.div`
 	@media (max-width: 480px) {
 		width: 300px;
 	}
-	& > span {
+	& h2 {
 		margin-bottom: 20px;
 		font-size: larger;
 		font-weight: 600;
 	}
-	& > :nth-child(2) {
-		margin-bottom: 20px;
-	}
-`
+`;
 export const AuthForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	width: 90%;
-`
+	& div {
+		margin-bottom: 20px;
+	}
+	& :nth-child(3) {
+		margin-bottom: 20px;
+	}
+`;
 
 export const Nav = styled.nav`
 	display: flex;
@@ -31,8 +34,14 @@ export const Nav = styled.nav`
 	margin-top: 10px;
 	height: 20px;
 	width: 100%;
-`
+`;
 
 export const LinkRouterDom = styled(Link)`
 	text-decoration: underline;
-`
+`;
+
+export const StyledTitle = styled.h2`
+	margin-bottom: 20px;
+	font-size: larger;
+	font-weight: 600;
+`;

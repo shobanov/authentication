@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link as LinkRouterDom } from 'react-router-dom';
+
 import styled from 'styled-components';
 
 export const RegistrationWrapper = styled.div`
@@ -6,8 +7,8 @@ export const RegistrationWrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	width: 400px;
-	& > span {
-		margin-bottom: 20px;
+	& h2 {
+		margin-bottom: 40px;
 		font-size: larger;
 		font-weight: 600;
 	}
@@ -21,6 +22,15 @@ export const RegistrationForm = styled.form`
 	flex-direction: column;
 	align-items: center;
 	width: 90%;
+	& :nth-child(2) {
+		margin-bottom: 20px;
+	}
+	& :nth-child(3) {
+		margin-bottom: 20px;
+	}
+	& :nth-child(4) {
+		margin-bottom: 20px;
+	}
 `;
 
 export const NameContainer = styled.div`
@@ -30,7 +40,7 @@ export const NameContainer = styled.div`
 	height: 40px;
 	width: 100%;
 	margin-bottom: 24px;
-	& > :nth-child(n + 1):nth-child(-n + 2) {
+	& div {
 		width: 46%;
 	}
 `;
@@ -43,6 +53,6 @@ export const Nav = styled.nav`
 	width: 100%;
 `;
 
-export const LinkRouterDom = styled(Link)`
+export const Link = styled(LinkRouterDom)`
 	text-decoration: underline;
 `;

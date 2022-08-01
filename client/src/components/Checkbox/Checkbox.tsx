@@ -12,7 +12,3 @@ export const Checkbox = ({ label }: CheckboxProps) => {
 		</Label>
 	);
 };
-
-// function onChange(e: CheckboxChangeEvent) {
-//   console.log(`checked = ${e.target.checked}`);
-// };

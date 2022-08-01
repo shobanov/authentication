@@ -1,4 +1,4 @@
-export { Title } from './Title';
 export { Input } from './Input';
 export { Checkbox } from './Checkbox';
 export { Button } from './Button';
+export { Spinner } from './Spinner';

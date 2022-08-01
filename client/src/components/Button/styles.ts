@@ -7,21 +7,17 @@ interface IProps {
 export const ButtonStyled = styled.button<IProps>`
 	background-color: ${props => (props.disabled ? 'grey' : '#1890ff')};
 	align-self: stretch;
-	margin-top: 25px;
 	height: 44px;
 	color: #ffffff;
 	border: none;
 	border-radius: 2px;
 	cursor: pointer;
+	&:hover {
+		background-color: #0077e6;
+		transition: 700ms;
+	}
 	&:active {
-		box-shadow: rgba(0, 0, 0, 0.1) 0 3px 6px 0, rgba(0, 0, 0, 0.1) 0 0 10px 0,
-			rgba(0, 0, 0, 0.1) 0 1px 4px -1px;
-
-		&:hover {
-			content: '""';
-			opacity: 1;
-			color: black;
-			background-color: black;
-		}
+		background-color: #004280;
+		transition: 100ms;
 	}
 `;

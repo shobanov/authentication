@@ -3,22 +3,16 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { schema } from './validation';
 import { RegisterDto } from '../../types';
-import * as AuthAC from '../../store/action-creators/AuthAC';
-import { Button, Checkbox, Input, Title } from '../../components';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { Button, Checkbox, Input } from '../../components';
 import {
 	RegistrationForm,
-	LinkRouterDom,
 	Nav,
+	Link,
 	NameContainer,
 	RegistrationWrapper,
 } from './styles';
 
 export const Registration = () => {
-	const dispatch = useAppDispatch();
-	const { isLoading, isAuth, error } = useAppSelector(
-		state => state.registration
-	);
 	const {
 		register,
 		handleSubmit,
@@ -26,13 +20,12 @@ export const Registration = () => {
 	} = useForm<RegisterDto>({
 		resolver: yupResolver(schema),
 	});
-	const onSubmit: SubmitHandler<RegisterDto> = data => {
-		dispatch(AuthAC.registration(data));
-	};
+
+	const onSubmit: SubmitHandler<RegisterDto> = data => {};
 
 	return (
 		<RegistrationWrapper>
-			<Title title='Sign up' />
+			<h2>Sign up</h2>
 			<RegistrationForm onSubmit={handleSubmit(onSubmit)}>
 				<NameContainer>
 					<Input
@@ -63,9 +56,7 @@ export const Registration = () => {
 				<Checkbox label='I want to receive inspiration, marketing promotions and updates via email.' />
 				<Button title='SIGN UP' type='submit' />
 				<Nav>
-					<LinkRouterDom to='/auth'>
-						Already have an account? Sign in
-					</LinkRouterDom>
+					<Link to='/auth'>Already have an account? Sign in</Link>
 				</Nav>
 			</RegistrationForm>
 		</RegistrationWrapper>
