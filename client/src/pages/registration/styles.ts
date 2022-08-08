@@ -7,6 +7,10 @@ export const RegistrationWrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	width: 400px;
+	& > div {
+		position: absolute;
+		top: 0;
+	}
 	& h2 {
 		margin-bottom: 40px;
 		font-size: larger;

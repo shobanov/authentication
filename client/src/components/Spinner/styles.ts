@@ -12,7 +12,7 @@ const spin = keyframes`
 `;
 
 export const SpinnerStyled = styled.div`
-	color: #1890ff;
+	color: #c5221f;
 	font-size: 10px;
 	margin: 80px auto;
 	position: relative;
@@ -25,6 +25,7 @@ export const SpinnerStyled = styled.div`
 	animation-fill-mode: both;
 	animation: ${spin} 2s infinite ease-in-out;
 	&:before {
+		color: #4285f4;
 		content: '';
 		position: absolute;
 		top: 0;
@@ -37,6 +38,7 @@ export const SpinnerStyled = styled.div`
 		left: -3em;
 	}
 	&:after {
+		color: #34a853;
 		content: '';
 		position: absolute;
 		top: 0;

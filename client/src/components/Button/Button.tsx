@@ -6,12 +6,13 @@ interface ButtonProps {
 	title: string;
 	type: 'button' | 'reset' | 'submit';
 	disabled?: boolean;
+	handler?: () => void;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-	({ title, type }, ref) => {
+	({ title, type, handler, disabled }, ref) => {
 		return (
-			<ButtonStyled ref={ref} type={type}>
+			<ButtonStyled ref={ref} type={type} onClick={handler} disabled={disabled}>
 				{title}
 			</ButtonStyled>
 		);

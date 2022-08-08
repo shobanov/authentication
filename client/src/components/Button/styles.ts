@@ -14,10 +14,8 @@ export const ButtonStyled = styled.button<IProps>`
 	cursor: pointer;
 	&:hover {
 		background-color: #0077e6;
-		transition: 700ms;
 	}
 	&:active {
 		background-color: #004280;
-		transition: 100ms;
 	}
 `;

@@ -1,14 +1,27 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-// import { useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 import { schema } from './validation';
 import { LoginDto } from '../../types';
+import { AuthApi } from '../../api/AuthApi';
 import { Button, Checkbox, Input, Spinner } from '../../components';
 import { AuthForm, AuthWrapper, LinkRouterDom, Nav } from './styles';
 
 export const Login = () => {
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
+
+	const { isLoading, data, mutateAsync } = useMutation(
+		'login',
+		(loginData: LoginDto) => AuthApi.login(loginData),
+		{
+			onSuccess: () => {
+				localStorage.setItem('token', data?.data.accessToken!);
+				navigate('/greeting');
+			},
+		}
+	);
 
 	const {
 		register,
@@ -19,11 +32,12 @@ export const Login = () => {
 	});
 
 	const handleSubmit: SubmitHandler<LoginDto> = data => {
-		// navigate('/greeting');
+		mutateAsync(data);
 	};
 
 	return (
 		<AuthWrapper>
+			{isLoading && <Spinner />}
 			<h2>Sign in</h2>
 			<AuthForm onSubmit={handleFormSubmit(handleSubmit)}>
 				<Input
@@ -39,7 +53,7 @@ export const Login = () => {
 					{...register('password')}
 				/>
 				<Checkbox label='Remember me' />
-				<Button title='SIGN IN' type='submit' />
+				<Button title='SIGN IN' type='submit' disabled={isLoading} />
 				<Nav>
 					<LinkRouterDom to='/forgot_password'>Forgot password?</LinkRouterDom>
 					<LinkRouterDom to='/registration'>

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 export const Greeting = () => {
 	const navigate = useNavigate();
 
-	const { isLoading, mutateAsync, data } = useMutation(
+	const { isLoading, mutateAsync } = useMutation(
 		'logout',
 		() => AuthApi.logout(),
 		{
@@ -18,8 +18,6 @@ export const Greeting = () => {
 			},
 		}
 	);
-
-	// 	const name = data.
 
 	return (
 		<GreetingWrapper>

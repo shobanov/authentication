@@ -1,9 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 import { schema } from './validation';
 import { RegisterDto } from '../../types';
-import { Button, Checkbox, Input } from '../../components';
+import { Button, Checkbox, Input, Spinner } from '../../components';
+import { AuthApi } from '../../api/AuthApi';
 import {
 	RegistrationForm,
 	Nav,
@@ -13,20 +16,36 @@ import {
 } from './styles';
 
 export const Registration = () => {
+	const navigate = useNavigate();
+
+	const { isLoading, data, mutateAsync } = useMutation(
+		'registration',
+		(registrationData: RegisterDto) => AuthApi.registration(registrationData),
+		{
+			onSuccess: () => {
+				localStorage.setItem('token', data?.data.accessToken!);
+				navigate('/login');
+			},
+		}
+	);
+
 	const {
 		register,
-		handleSubmit,
+		handleSubmit: handleFormSubmit,
 		formState: { errors },
 	} = useForm<RegisterDto>({
 		resolver: yupResolver(schema),
 	});
 
-	const onSubmit: SubmitHandler<RegisterDto> = data => {};
+	const handleSubmit: SubmitHandler<RegisterDto> = data => {
+		mutateAsync(data);
+	};
 
 	return (
 		<RegistrationWrapper>
+			{isLoading && <Spinner />}
 			<h2>Sign up</h2>
-			<RegistrationForm onSubmit={handleSubmit(onSubmit)}>
+			<RegistrationForm onSubmit={handleFormSubmit(handleSubmit)}>
 				<NameContainer>
 					<Input
 						type='text'
@@ -54,9 +73,9 @@ export const Registration = () => {
 					{...register('password')}
 				/>
 				<Checkbox label='I want to receive inspiration, marketing promotions and updates via email.' />
-				<Button title='SIGN UP' type='submit' />
+				<Button title='SIGN UP' type='submit' disabled={isLoading} />
 				<Nav>
-					<Link to='/auth'>Already have an account? Sign in</Link>
+					<Link to='/login'>Already have an account? Sign in</Link>
 				</Nav>
 			</RegistrationForm>
 		</RegistrationWrapper>

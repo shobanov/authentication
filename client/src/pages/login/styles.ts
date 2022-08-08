@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const AuthWrapper = styled.div`
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -13,6 +14,10 @@ export const AuthWrapper = styled.div`
 		margin-bottom: 20px;
 		font-size: larger;
 		font-weight: 600;
+	}
+	& > div {
+		position: absolute;
+		top: -130px;
 	}
 `;
 export const AuthForm = styled.form`
