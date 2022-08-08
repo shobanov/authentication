@@ -1,31 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
 
 import { schema } from './validation';
 import { LoginDto } from '../../types';
-import { AuthApi } from '../../api/AuthApi';
 import { Button, Checkbox, Input, Spinner } from '../../components';
 import { AuthForm, AuthWrapper, LinkRouterDom, Nav } from './styles';
+import { useLoginMutation } from './useLoginMutation';
 
 export const Login = () => {
-	const navigate = useNavigate();
-	const queryClient = useQueryClient();
-
-	const { isLoading, mutateAsync } = useMutation(
-		'login',
-		(loginData: LoginDto) => AuthApi.login(loginData),
-		{
-			onSuccess({ data }) {
-				console.log(data);
-
-				localStorage.setItem('token', data.data.accessToken);
-				queryClient.setQueryData('login', data.data.user);
-				navigate('/greeting');
-			},
-		}
-	);
+	const { mutate, isLoading } = useLoginMutation();
 
 	const {
 		register,
@@ -36,7 +19,7 @@ export const Login = () => {
 	});
 
 	const handleSubmit: SubmitHandler<LoginDto> = loginData => {
-		mutateAsync(loginData);
+		mutate(loginData);
 	};
 
 	return (

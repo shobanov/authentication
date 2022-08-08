@@ -1,35 +1,12 @@
-import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
-import { Button, Spinner } from '../../components';
-import { AuthApi } from '../../api/AuthApi';
-import { GreetingWrapper } from './styles';
 import { IUser } from '../../types';
-// import { IUser } from '../../types';
+import { GreetingWrapper } from './styles';
+import { Button, Spinner } from '../../components';
+import { useLogoutMutation } from './useLogoutMutation';
 
 export const Greeting = () => {
-	const queryClient = useQueryClient();
-	// const queryData = queryClient.getQueryData<IUser>('login');
-	const navigate = useNavigate();
-
-	const { isLoading, mutateAsync } = useMutation(
-		'logout',
-		() => AuthApi.logout(),
-		{
-			onSuccess: () => {
-				localStorage.removeItem('token');
-				queryClient.removeQueries('login');
-				navigate('/login');
-			},
-		}
-	);
-
-	/*
-	const userName = Object.values(
-		jwt_decode(localStorage.getItem('token') as string) as []
-	)[1];
-	*/
+	const { mutate, isLoading } = useLogoutMutation();
 
 	const userName = (() => {
 		const token = localStorage.getItem('token') ?? '';
@@ -44,7 +21,7 @@ export const Greeting = () => {
 			<Button
 				title='Logout'
 				type='button'
-				handler={() => mutateAsync()}
+				handler={() => mutate()}
 				disabled={isLoading}
 			/>
 			<h2>

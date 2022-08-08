@@ -1,19 +1,19 @@
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { LoginDto } from '../../types';
+import { RegisterDto } from '../../types';
 
 import { AuthApi } from '../../api/AuthApi';
 
-export const useLoginMutation = () => {
+export const useRegisterMutation = () => {
 	const navigate = useNavigate();
 
 	return useMutation(
 		'login',
-		(loginData: LoginDto) => AuthApi.login(loginData),
+		(registrationData: RegisterDto) => AuthApi.registration(registrationData),
 		{
 			onSuccess({ data }) {
 				localStorage.setItem('token', data.data.accessToken);
-				navigate('/greeting');
+				navigate('/login');
 			},
 		}
 	);

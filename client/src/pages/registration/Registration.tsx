@@ -1,12 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
-import { useNavigate } from 'react-router-dom';
 
 import { schema } from './validation';
 import { RegisterDto } from '../../types';
+import { useRegisterMutation } from './useRegisterMutation';
 import { Button, Checkbox, Input, Spinner } from '../../components';
-import { AuthApi } from '../../api/AuthApi';
 import {
 	RegistrationForm,
 	Nav,
@@ -16,18 +14,7 @@ import {
 } from './styles';
 
 export const Registration = () => {
-	const navigate = useNavigate();
-
-	const { isLoading, mutateAsync } = useMutation(
-		'registration',
-		(registrationData: RegisterDto) => AuthApi.registration(registrationData),
-		{
-			onSuccess: res => {
-				localStorage.setItem('token', res.data.data.accessToken);
-				navigate('/login');
-			},
-		}
-	);
+	const { mutate, isLoading } = useRegisterMutation();
 
 	const {
 		register,
@@ -38,7 +25,7 @@ export const Registration = () => {
 	});
 
 	const handleSubmit: SubmitHandler<RegisterDto> = RegistrationData => {
-		mutateAsync(RegistrationData);
+		mutate(RegistrationData);
 	};
 
 	return (
