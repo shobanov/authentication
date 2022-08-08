@@ -26,23 +26,3 @@ export const AuthApi = {
 		return instance.get<IUser[]>('users');
 	},
 };
-
-// export const login = async (
-// 	dto: LoginDto
-// ): Promise<AxiosResponse<AuthResponse>> => {
-// 	return instance.post<AuthResponse>('login', dto);
-// };
-
-// export const registration = async (
-// 	dto: RegisterDto
-// ): Promise<AxiosResponse<AuthResponse>> => {
-// 	return instance.post<AuthResponse>('registration', dto);
-// };
-
-// export const logout = async (): Promise<void> => {
-// 	return instance.post('logout');
-// };
-
-// export const fetchUsers = async (): Promise<AxiosResponse<IUser[]>> => {
-// 	return instance.get<IUser[]>('users');
-// };

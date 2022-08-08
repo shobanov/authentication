@@ -18,12 +18,12 @@ import {
 export const Registration = () => {
 	const navigate = useNavigate();
 
-	const { isLoading, data, mutateAsync } = useMutation(
+	const { isLoading, mutateAsync } = useMutation(
 		'registration',
 		(registrationData: RegisterDto) => AuthApi.registration(registrationData),
 		{
-			onSuccess: () => {
-				localStorage.setItem('token', data?.data.accessToken!);
+			onSuccess: res => {
+				localStorage.setItem('token', res.data.data.accessToken);
 				navigate('/login');
 			},
 		}
@@ -37,8 +37,8 @@ export const Registration = () => {
 		resolver: yupResolver(schema),
 	});
 
-	const handleSubmit: SubmitHandler<RegisterDto> = data => {
-		mutateAsync(data);
+	const handleSubmit: SubmitHandler<RegisterDto> = RegistrationData => {
+		mutateAsync(RegistrationData);
 	};
 
 	return (

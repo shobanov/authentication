@@ -1,13 +1,16 @@
 export interface IUser {
 	id: number;
 	email: string;
+	firstName: string;
 	isActivated: boolean;
 }
 
 export type AuthResponse = {
-	accessToken: string;
-	refreshToken: string;
-	user: IUser;
+	data: {
+		accessToken: string;
+		refreshToken: string;
+		user: IUser;
+	};
 };
 
 export type RegisterDto = {
