@@ -1,6 +1,13 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { AuthResponse, IUser, LoginDto, RegisterDto } from '../types';
+import {
+	AuthResponse,
+	IUser,
+	LoginDto,
+	PasswordRecoveryDto,
+	PasswordUpdateDto,
+	RegisterDto,
+} from '../types';
 
 export const instance = axios.create({
 	baseURL: 'http://localhost:5000/',
@@ -24,5 +31,13 @@ export const AuthApi = {
 	},
 	async fetchUsers(): Promise<AxiosResponse<IUser[]>> {
 		return instance.get<IUser[]>('users');
+	},
+	async passwordUpdate(dto: PasswordUpdateDto): Promise<AxiosResponse<void>> {
+		return instance.post('password_update', dto);
+	},
+	async passwordRecovery(
+		dto: PasswordRecoveryDto
+	): Promise<AxiosResponse<void>> {
+		return instance.post('password_recovery', dto);
 	},
 };

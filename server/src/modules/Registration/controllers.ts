@@ -48,7 +48,7 @@ exports.activate = async (
 		const activationLink = req.params.link;
 		await services.activate(activationLink);
 
-		return res.redirect(String(process.env.REDIRECT_URL));
+		return res.redirect(String(process.env.REDIRECT_URL_LOGIN));
 	} catch (e) {
 		next(e);
 	}

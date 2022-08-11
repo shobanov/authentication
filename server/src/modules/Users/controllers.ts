@@ -15,3 +15,39 @@ exports.fetchUsers = async (
 		next(e);
 	}
 };
+
+exports.PasswordRecovery = async (
+	req: express.Request,
+	res: express.Response,
+	next: express.NextFunction
+) => {
+	const { email } = req.body;
+
+	try {
+		await services.PasswordRecovery(email);
+
+		return res.status(200).json({
+			message: `An email has been sent to ${email} to change your password`,
+		});
+	} catch (e) {
+		next(e);
+	}
+};
+
+exports.PasswordUpdate = async (
+	req: express.Request,
+	res: express.Response,
+	next: express.NextFunction
+) => {
+	const { email, password } = req.body;
+
+	try {
+		await services.PasswordUpdate(email, password);
+
+		return res.status(200).json({
+			message: `Password for ${email} was successfully updated`,
+		});
+	} catch (e) {
+		next(e);
+	}
+};

@@ -42,7 +42,9 @@ export const Login = () => {
 				<Checkbox label='Remember me' />
 				<Button title='SIGN IN' type='submit' disabled={isLoading} />
 				<Nav>
-					<LinkRouterDom to='/forgot_password'>Forgot password?</LinkRouterDom>
+					<LinkRouterDom to='/password_recovery'>
+						Forgot password?
+					</LinkRouterDom>
 					<LinkRouterDom to='/registration'>
 						Don't have an account? Sign Up
 					</LinkRouterDom>

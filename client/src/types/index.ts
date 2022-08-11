@@ -24,3 +24,10 @@ export interface LoginDto {
 	email: string;
 	password: string;
 }
+
+export type PasswordRecoveryDto = Omit<LoginDto, 'password'>;
+export type PasswordUpdateDto = LoginDto;
+
+export interface IPasswordUpdate extends LoginDto {
+	passwordConfirm: string;
+}
