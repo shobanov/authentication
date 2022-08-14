@@ -18,7 +18,7 @@ export const App = () => {
 				<Route path='/registration' element={<Registration />} />
 				<Route path='/greeting' element={<Greeting />} />
 				<Route path='/password_recovery' element={<PasswordRecovery />} />
-				<Route path='/password_update' element={<PasswordUpdate />} />
+				<Route path='/password_update/:link' element={<PasswordUpdate />} />
 			</Routes>
 		</Root>
 	);

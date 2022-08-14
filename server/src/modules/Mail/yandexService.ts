@@ -37,7 +37,7 @@ exports.sandActivationMail = async (to: string, link: string) => {
 	await transporter.sendMail(mailOptions);
 };
 
-exports.sandUpdatePasswordMail = async (to: string) => {
+exports.sandUpdatePasswordMail = async (to: string, link: string) => {
 	const transporter = nodemailer.createTransport({
 		host: process.env.YANDEX_SMTP_HOST,
 		port: process.env.YANDEX_SMTP_PORT,
@@ -58,15 +58,13 @@ exports.sandUpdatePasswordMail = async (to: string) => {
 
 	transporter.use('compile', hbs(handlebarOptions));
 
-	const redirectLink = process.env.REDIRECT_URL_PASSWORD_UPDATE;
-
 	const mailOptions = {
 		from: process.env.YANDEX_SMTP_USER,
 		to,
 		subject: 'Change password',
 		template: 'updatePassword',
 		context: {
-			redirectLink,
+			link,
 		},
 	};
 

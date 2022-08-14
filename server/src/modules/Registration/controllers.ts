@@ -1,5 +1,5 @@
 import express from 'express';
-const { validationResult } = require('express-validator');
+import { validationResult, ValidationError } from 'express-validator';
 
 const services = require('./services');
 
@@ -8,16 +8,8 @@ exports.registration = async (
 	res: express.Response,
 	next: express.NextFunction
 ) => {
+	const { firstName, lastName, email, password } = req.body;
 	try {
-		const { firstName, lastName, email, password } = req.body;
-		const validationErrors = validationResult(req);
-
-		if (!validationErrors.isEmpty()) {
-			return res
-				.status(409)
-				.json({ message: 'Invalid validation', validationErrors });
-		}
-
 		const userData = await services.registration(
 			firstName,
 			lastName,
@@ -44,8 +36,8 @@ exports.activate = async (
 	res: express.Response,
 	next: express.NextFunction
 ) => {
+	const activationLink = req.params.link;
 	try {
-		const activationLink = req.params.link;
 		await services.activate(activationLink);
 
 		return res.redirect(String(process.env.REDIRECT_URL_LOGIN));

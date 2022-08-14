@@ -8,15 +8,16 @@ generator client {
 }
 
 model User {
-  id             String   @id @default(uuid())
-  createdAt      DateTime @default(now())
-  firstName      String
-  lastName       String
-  email          String   @unique
-  password       String
-  token          Token?   
-  isActivated    Boolean  @default(false)
-  activationLink String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id                 String   @id @default(uuid())
+  createdAt          DateTime @default(now())
+  firstName          String
+  lastName           String
+  email              String   @unique
+  password           String
+  token              Token?   
+  isActivated        Boolean  @default(false)
+  activationLink     String?   
+  passwordUpdateLink String?   
 }
 
 model Token {

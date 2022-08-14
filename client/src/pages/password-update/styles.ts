@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const PasswordUpdateWrapper = styled.div`
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -8,12 +9,12 @@ export const PasswordUpdateWrapper = styled.div`
 	& h2 {
 		margin-bottom: 20px;
 		text-align: center;
-		font-size: large;
+		font-size: larger;
 		font-weight: 400;
 	}
 	& > div {
 		position: absolute;
-		top: 60px;
+		top: -130px;
 	}
 	@media (max-width: 480px) {
 		width: 300px;

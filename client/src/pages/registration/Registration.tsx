@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { Toaster } from 'react-hot-toast';
 
 import { schema } from './validation';
 import { RegisterDto } from '../../types';
@@ -14,7 +15,7 @@ import {
 } from './styles';
 
 export const Registration = () => {
-	const { mutate, isLoading } = useRegisterMutation();
+	const { mutate, isLoading, isSuccess } = useRegisterMutation();
 
 	const {
 		register,
@@ -30,6 +31,7 @@ export const Registration = () => {
 
 	return (
 		<RegistrationWrapper>
+			<Toaster />
 			{isLoading && <Spinner />}
 			<h2>Sign up</h2>
 			<RegistrationForm onSubmit={handleFormSubmit(handleSubmit)}>
@@ -60,7 +62,11 @@ export const Registration = () => {
 					{...register('password')}
 				/>
 				<Checkbox label='I want to receive inspiration, marketing promotions and updates via email.' />
-				<Button title='SIGN UP' type='submit' disabled={isLoading} />
+				<Button
+					title='SIGN UP'
+					type='submit'
+					disabled={isLoading || isSuccess}
+				/>
 				<Nav>
 					<Link to='/login'>Already have an account? Sign in</Link>
 				</Nav>

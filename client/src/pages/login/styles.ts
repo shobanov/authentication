@@ -43,6 +43,12 @@ export const Nav = styled.nav`
 
 export const LinkRouterDom = styled(Link)`
 	text-decoration: underline;
+	color: #1890ff;
+
+	&:hover {
+		text-decoration: none;
+		color: #0077e6;
+	}
 `;
 
 export const StyledTitle = styled.h2`

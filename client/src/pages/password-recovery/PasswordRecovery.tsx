@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Toaster } from 'react-hot-toast';
 
 import { Button, Input, Spinner } from '../../components';
 import { schema } from './validation';
@@ -8,7 +9,7 @@ import { PasswordRecoveryForm, PasswordRecoveryWrapper } from './styles';
 import { PasswordRecoveryDto } from '../../types';
 
 export const PasswordRecovery = () => {
-	const { mutate, isLoading } = usePassRecoveryMutation();
+	const { mutate, isLoading, isSuccess } = usePassRecoveryMutation();
 
 	const {
 		register,
@@ -24,6 +25,7 @@ export const PasswordRecovery = () => {
 
 	return (
 		<PasswordRecoveryWrapper>
+			<Toaster />
 			{isLoading && <Spinner />}
 			<h2>
 				Enter the email address associated with your account. Password reset
@@ -36,7 +38,11 @@ export const PasswordRecovery = () => {
 					validationError={errors.email?.message}
 					{...register('email')}
 				/>
-				<Button title='recover password' type='submit' />
+				<Button
+					title='recover password'
+					type='submit'
+					disabled={isLoading || isSuccess}
+				/>
 			</PasswordRecoveryForm>
 		</PasswordRecoveryWrapper>
 	);

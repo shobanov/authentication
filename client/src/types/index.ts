@@ -25,9 +25,18 @@ export interface LoginDto {
 	password: string;
 }
 
-export type PasswordRecoveryDto = Omit<LoginDto, 'password'>;
-export type PasswordUpdateDto = LoginDto;
+export type ErrorResponse = {
+	status: number;
+	message: string;
+};
 
-export interface IPasswordUpdate extends LoginDto {
+export type PasswordUpdateDto = {
+	password: string;
+	link: string | undefined;
+};
+
+export type PasswordRecoveryDto = Omit<LoginDto, 'password'>;
+
+export interface IPasswordUpdate extends PasswordUpdateDto {
 	passwordConfirm: string;
 }

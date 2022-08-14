@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { Toaster } from 'react-hot-toast';
 
 import { schema } from './validation';
 import { LoginDto } from '../../types';
@@ -8,7 +9,7 @@ import { AuthForm, AuthWrapper, LinkRouterDom, Nav } from './styles';
 import { useLoginMutation } from './useLoginMutation';
 
 export const Login = () => {
-	const { mutate, isLoading } = useLoginMutation();
+	const { mutate, isLoading, isSuccess } = useLoginMutation();
 
 	const {
 		register,
@@ -24,6 +25,7 @@ export const Login = () => {
 
 	return (
 		<AuthWrapper>
+			<Toaster />
 			{isLoading && <Spinner />}
 			<h2>Sign in</h2>
 			<AuthForm onSubmit={handleFormSubmit(handleSubmit)}>
@@ -40,7 +42,11 @@ export const Login = () => {
 					{...register('password')}
 				/>
 				<Checkbox label='Remember me' />
-				<Button title='SIGN IN' type='submit' disabled={isLoading} />
+				<Button
+					title='SIGN IN'
+					type='submit'
+					disabled={isLoading || isSuccess}
+				/>
 				<Nav>
 					<LinkRouterDom to='/password_recovery'>
 						Forgot password?

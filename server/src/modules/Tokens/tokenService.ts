@@ -27,7 +27,7 @@ exports.saveToken = async (userId: string, refreshToken: string) => {
 	});
 
 	if (tokenData) {
-		return await prisma.token.updateMany({
+		return await prisma.token.update({
 			where: {
 				userId,
 			},
@@ -46,7 +46,7 @@ exports.saveToken = async (userId: string, refreshToken: string) => {
 };
 
 exports.removeToken = async (refreshToken: string) => {
-	const tokenData = await prisma.token.deleteMany({
+	const tokenData = await prisma.token.delete({
 		where: {
 			refreshToken,
 		},

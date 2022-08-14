@@ -11,7 +11,6 @@ import {
 
 export const instance = axios.create({
 	baseURL: 'http://localhost:5000/',
-	withCredentials: true,
 });
 
 instance.interceptors.request.use((config: AxiosRequestConfig) => {
@@ -33,7 +32,7 @@ export const AuthApi = {
 		return instance.get<IUser[]>('users');
 	},
 	async passwordUpdate(dto: PasswordUpdateDto): Promise<AxiosResponse<void>> {
-		return instance.post('password_update', dto);
+		return instance.patch('password_update', dto);
 	},
 	async passwordRecovery(
 		dto: PasswordRecoveryDto

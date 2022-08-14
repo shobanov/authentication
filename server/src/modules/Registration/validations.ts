@@ -2,12 +2,17 @@ const expressValidatior = require('express-validator');
 
 exports.registration = [
 	expressValidatior
-		.check(['firstName', 'lastName', 'email'], 'this field cannot be empty')
+		.check('firstName', 'firstName field cannot be empty')
 		.notEmpty(),
 	expressValidatior
-		.check('password', 'password must be at least 7 characters')
+		.check('lastName', 'lastName field cannot be empty')
+		.notEmpty(),
+	expressValidatior.check('email', 'email field cannot be empty').notEmpty(),
+	expressValidatior
+		.check('password', 'password validation error')
 		.isLength({
-			min: 7,
+			min: 6,
 			max: 32,
-		}),
+		})
+		.notEmpty('password must not be empty'),
 ];
