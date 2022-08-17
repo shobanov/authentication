@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link as LinkRouterDom } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const AuthWrapper = styled.div`
@@ -29,7 +29,7 @@ export const AuthForm = styled.form`
 		margin-bottom: 20px;
 	}
 	& :nth-child(3) {
-		margin-bottom: 20px;
+		// margin-bottom: 20px;
 	}
 `;
 
@@ -41,7 +41,7 @@ export const Nav = styled.nav`
 	width: 100%;
 `;
 
-export const LinkRouterDom = styled(Link)`
+export const Link = styled(LinkRouterDom)`
 	text-decoration: underline;
 	color: #1890ff;
 

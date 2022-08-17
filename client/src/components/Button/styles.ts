@@ -11,7 +11,7 @@ export const ButtonStyled = styled.button<IProps>`
 	color: #ffffff;
 	border: none;
 	border-radius: 2px;
-	cursor: ${props => (props.disabled ? 'progress' : 'pointer')};
+	cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
 	&:hover {
 		background-color: ${props => (props.disabled ? 'grey' : '#0077e6')};
 	}

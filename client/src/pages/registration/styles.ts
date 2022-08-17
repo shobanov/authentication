@@ -23,29 +23,26 @@ export const RegistrationWrapper = styled.div`
 
 export const RegistrationForm = styled.form`
 	display: flex;
+	gap: 20px;
 	flex-direction: column;
 	align-items: center;
 	width: 90%;
-	& :nth-child(2) {
-		margin-bottom: 20px;
-	}
-	& :nth-child(3) {
-		margin-bottom: 20px;
-	}
-	& :nth-child(4) {
-		margin-bottom: 20px;
-	}
 `;
 
 export const NameContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	height: 40px;
 	width: 100%;
-	margin-bottom: 24px;
 	& div {
-		width: 46%;
+		width: 48%;
+		@media (max-width: 480px) {
+			width: 100%;
+		}
+	}
+	@media (max-width: 480px) {
+		flex-wrap: wrap;
+		gap: 20px;
 	}
 `;
 

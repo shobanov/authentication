@@ -45,16 +45,13 @@ exports.PasswordRecovery = async (email: string) => {
 	return user;
 };
 
-exports.PasswordUpdate = async (
-	password: string,
-	passwordUpdateLink: string
-) => {
+exports.PasswordUpdate = async (password: string, link: string) => {
 	const user = await prisma.user.findFirst({
 		where: {
-			passwordUpdateLink,
+			passwordUpdateLink: link,
 		},
 	});
-
+	console.log('user: ', user);
 	if (!user) {
 		throw ApiError.BadRequest('link is not correct');
 	}

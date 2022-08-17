@@ -4,8 +4,8 @@ import { Toaster } from 'react-hot-toast';
 
 import { schema } from './validation';
 import { LoginDto } from '../../types';
-import { Button, Checkbox, Input, Spinner } from '../../components';
-import { AuthForm, AuthWrapper, LinkRouterDom, Nav } from './styles';
+import { Button, Input, Spinner } from '../../components';
+import { AuthForm, AuthWrapper, Link, Nav } from './styles';
 import { useLoginMutation } from './useLoginMutation';
 
 export const Login = () => {
@@ -41,19 +41,14 @@ export const Login = () => {
 					validationError={errors.password?.message}
 					{...register('password')}
 				/>
-				<Checkbox label='Remember me' />
 				<Button
 					title='SIGN IN'
 					type='submit'
 					disabled={isLoading || isSuccess}
 				/>
 				<Nav>
-					<LinkRouterDom to='/password_recovery'>
-						Forgot password?
-					</LinkRouterDom>
-					<LinkRouterDom to='/registration'>
-						Don't have an account? Sign Up
-					</LinkRouterDom>
+					<Link to='/password_recovery'>Forgot password?</Link>
+					<Link to='/registration'>Don't have an account? Sign Up</Link>
 				</Nav>
 			</AuthForm>
 		</AuthWrapper>

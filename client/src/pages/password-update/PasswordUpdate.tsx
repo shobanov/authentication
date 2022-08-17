@@ -7,9 +7,11 @@ import { usePassUpdateMutation } from './usePassUpdate';
 import { schema } from './validation';
 import { IPasswordUpdate } from '../../types';
 import { PasswordUpdateForm, PasswordUpdateWrapper } from './styles';
+import { useParams } from 'react-router-dom';
 
 export const PasswordUpdate = () => {
 	const { mutate, isLoading, isSuccess } = usePassUpdateMutation();
+	const { link } = useParams();
 
 	const {
 		register,
@@ -20,7 +22,6 @@ export const PasswordUpdate = () => {
 	});
 
 	const handleSubmit: SubmitHandler<IPasswordUpdate> = ({ password }) => {
-		const link = window.location.pathname.split('/').pop();
 		mutate({ password, link });
 	};
 

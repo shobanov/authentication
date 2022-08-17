@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Toaster } from 'react-hot-toast';
@@ -5,7 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import { schema } from './validation';
 import { RegisterDto } from '../../types';
 import { useRegisterMutation } from './useRegisterMutation';
-import { Button, Checkbox, Input, Spinner } from '../../components';
+import { Button, Checkbox, Input, MailPlug, Spinner } from '../../components';
 import {
 	RegistrationForm,
 	Nav,
@@ -16,11 +17,12 @@ import {
 
 export const Registration = () => {
 	const { mutate, isLoading, isSuccess } = useRegisterMutation();
+	const [isChecked, setIsChecked] = useState<boolean>(false);
 
 	const {
 		register,
 		handleSubmit: handleFormSubmit,
-		formState: { errors },
+		formState: { errors, isValid },
 	} = useForm<RegisterDto>({
 		resolver: yupResolver(schema),
 	});
@@ -28,6 +30,14 @@ export const Registration = () => {
 	const handleSubmit: SubmitHandler<RegisterDto> = RegistrationData => {
 		mutate(RegistrationData);
 	};
+
+	const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setIsChecked(e.target.checked);
+	};
+
+	if (isSuccess) {
+		return <MailPlug title='A confirmation email has been sent to you' />;
+	}
 
 	return (
 		<RegistrationWrapper>
@@ -61,11 +71,16 @@ export const Registration = () => {
 					validationError={errors.password?.message}
 					{...register('password')}
 				/>
-				<Checkbox label='I want to receive inspiration, marketing promotions and updates via email.' />
+				<Checkbox
+					label='I accept the user agreement'
+					isChecked={isChecked}
+					handleChange={handleCheckbox}
+					isDisabled={isSuccess}
+				/>
 				<Button
 					title='SIGN UP'
 					type='submit'
-					disabled={isLoading || isSuccess}
+					disabled={!isValid || !isChecked || isLoading || isSuccess}
 				/>
 				<Nav>
 					<Link to='/login'>Already have an account? Sign in</Link>

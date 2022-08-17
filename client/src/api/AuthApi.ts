@@ -32,7 +32,7 @@ export const AuthApi = {
 		return instance.get<IUser[]>('users');
 	},
 	async passwordUpdate(dto: PasswordUpdateDto): Promise<AxiosResponse<void>> {
-		return instance.patch('password_update', dto);
+		return instance.post('password_update', dto);
 	},
 	async passwordRecovery(
 		dto: PasswordRecoveryDto

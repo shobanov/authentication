@@ -38,15 +38,11 @@ exports.PasswordUpdate = async (
 	res: express.Response,
 	next: express.NextFunction
 ) => {
-	console.log('!!!!!!!!!!!!!!');
-	const { password } = req.body;
-	const passwordUpdateLink = req.params.link;
+	const { password, link } = req.body;
+	console.log('link: ', link);
 
 	try {
-		const { email } = await services.PasswordUpdate(
-			password,
-			passwordUpdateLink
-		);
+		const { email } = await services.PasswordUpdate(password, link);
 
 		return res.status(200).json({
 			message: `Password for ${email} was successfully updated`,
