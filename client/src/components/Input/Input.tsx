@@ -15,7 +15,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 		<InputWrapper>
 			<InputStyled {...props} ref={ref} />
 			{props.validationError && (
-				<ValidationError text={props.validationError} />
+				<ValidationError errorMessage={props.validationError} />
 			)}
 		</InputWrapper>
 	);

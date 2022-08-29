@@ -11,10 +11,6 @@ export const PasswordRecoveryWrapper = styled.div`
 		font-size: large;
 		font-weight: 400;
 	}
-	& > div {
-		position: absolute;
-		top: 70px;
-	}
 	@media (max-width: 480px) {
 		width: 300px;
 	}
@@ -23,7 +19,5 @@ export const PasswordRecoveryForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	width: 90%;
-	& :nth-child(1) {
-		margin-bottom: 15px;
-	}
+	gap: 15px;
 `;

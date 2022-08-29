@@ -4,8 +4,8 @@ import {
 	Registration,
 	Login,
 	PasswordRecovery,
-	Greeting,
 	PasswordUpdate,
+	Greeting,
 } from './pages';
 import { Root } from './Root';
 

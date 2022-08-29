@@ -1,8 +1,6 @@
-import { Link as LinkRouterDom } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const AuthWrapper = styled.div`
-	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -15,44 +13,25 @@ export const AuthWrapper = styled.div`
 		font-size: larger;
 		font-weight: 600;
 	}
-	& > div {
-		position: absolute;
-		top: -130px;
-	}
 `;
 export const AuthForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	width: 90%;
-	& div {
-		margin-bottom: 20px;
-	}
-	& :nth-child(3) {
-		// margin-bottom: 20px;
-	}
+	gap: 15px;
 `;
 
 export const Nav = styled.nav`
 	display: flex;
 	justify-content: space-between;
-	margin-top: 10px;
+	flex-wrap: wrap;
 	height: 20px;
 	width: 100%;
-`;
-
-export const Link = styled(LinkRouterDom)`
-	text-decoration: underline;
-	color: #1890ff;
-
-	&:hover {
-		text-decoration: none;
-		color: #0077e6;
+	@media (max-width: 480px) {
+		gap: 5px;
 	}
-`;
-
-export const StyledTitle = styled.h2`
-	margin-bottom: 20px;
-	font-size: larger;
-	font-weight: 600;
+	& a {
+		font-size: 15px;
+	}
 `;

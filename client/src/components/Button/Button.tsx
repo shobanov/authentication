@@ -1,20 +1,17 @@
-import { forwardRef } from 'react';
+import { forwardRef, PropsWithChildren } from 'react';
 
 import { ButtonStyled } from './styles';
 
 interface ButtonProps {
-	title: string;
+	children: React.ReactNode;
 	type: 'button' | 'reset' | 'submit';
+	isLoading?: boolean;
 	disabled?: boolean;
-	handler?: () => void;
+	onClick?: () => void;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-	({ title, type, handler, disabled }, ref) => {
-		return (
-			<ButtonStyled ref={ref} type={type} onClick={handler} disabled={disabled}>
-				{title}
-			</ButtonStyled>
-		);
+	(props: PropsWithChildren, ref) => {
+		return <ButtonStyled ref={ref} {...props} />;
 	}
 );

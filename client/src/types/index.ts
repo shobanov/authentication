@@ -13,7 +13,7 @@ export type AuthResponse = {
 	};
 };
 
-export type RegisterDto = {
+export type RegistrationDto = {
 	firstName: string;
 	lastName: string;
 	email: string;
@@ -38,5 +38,9 @@ export type PasswordUpdateDto = {
 export type PasswordRecoveryDto = Omit<LoginDto, 'password'>;
 
 export interface IPasswordUpdate extends PasswordUpdateDto {
+	passwordConfirm: string;
+}
+
+export interface IRegistration extends RegistrationDto {
 	passwordConfirm: string;
 }

@@ -1,10 +1,10 @@
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import { AxiosError, AxiosResponse } from 'axios';
 
 import { AuthApi } from '../../api/AuthApi';
 import { ErrorResponse, PasswordUpdateDto } from '../../types';
+import { errorNotify } from '../../notifications/errorNotify';
 
 export const usePassUpdateMutation = () => {
 	const navigate = useNavigate();
@@ -15,14 +15,10 @@ export const usePassUpdateMutation = () => {
 		PasswordUpdateDto
 	>('passwordUpdate', data => AuthApi.passwordUpdate(data), {
 		onSuccess() {
-			toast.success('password changed successfully!');
-
-			setTimeout(() => {
-				navigate('/login');
-			}, 2500);
+			navigate('/login');
 		},
 		onError(error) {
-			toast.error(`${error.response?.data.message}`);
+			errorNotify(error);
 		},
 	});
 };

@@ -1,26 +1,28 @@
-import { useMutation, useQueryClient } from 'react-query';
+import { useContext } from 'react';
+import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import toast from 'react-hot-toast';
 
 import { AuthApi } from '../../api/AuthApi';
 import { ErrorResponse } from '../../types';
+import { errorNotify } from '../../notifications/errorNotify';
+import { AuthContext } from '../../context';
 
 export const useLogoutMutation = () => {
 	const navigate = useNavigate();
-	const queryClient = useQueryClient();
+	const { setUserName, setIsAuth } = useContext(AuthContext);
 
 	return useMutation<void, AxiosError<ErrorResponse>>(
 		'logout',
 		() => AuthApi.logout(),
 		{
 			onSuccess() {
-				localStorage.removeItem('token');
-				queryClient.removeQueries('login');
+				setUserName('');
+				setIsAuth(false);
 				navigate('/login');
 			},
 			onError(error) {
-				toast.error(`${error.response?.data.message}`);
+				errorNotify(error);
 			},
 		}
 	);

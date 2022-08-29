@@ -6,7 +6,7 @@ import {
 	LoginDto,
 	PasswordRecoveryDto,
 	PasswordUpdateDto,
-	RegisterDto,
+	RegistrationDto,
 } from '../types';
 
 export const instance = axios.create({
@@ -22,7 +22,9 @@ export const AuthApi = {
 	async login(dto: LoginDto): Promise<AxiosResponse<AuthResponse>> {
 		return instance.post<AuthResponse>('login', dto);
 	},
-	async registration(dto: RegisterDto): Promise<AxiosResponse<AuthResponse>> {
+	async registration(
+		dto: RegistrationDto
+	): Promise<AxiosResponse<AuthResponse>> {
 		return instance.post<AuthResponse>('registration', dto);
 	},
 	async logout(): Promise<void> {

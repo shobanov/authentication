@@ -4,23 +4,14 @@ interface CheckboxProps {
 	label: string;
 	isChecked: boolean;
 	isDisabled: boolean;
-	handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Checkbox = ({
-	label,
-	handleChange,
-	isDisabled,
-	isChecked,
-}: CheckboxProps) => {
+export const Checkbox = (props: CheckboxProps) => {
 	return (
 		<Label>
-			<CheckboxStyled
-				checked={isChecked}
-				onChange={handleChange}
-				disabled={isDisabled}
-			/>
-			<Title>{label}</Title>
+			<CheckboxStyled {...props} />
+			<Title>{props.label}</Title>
 		</Label>
 	);
 };

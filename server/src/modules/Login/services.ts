@@ -18,6 +18,10 @@ exports.login = async (email: string, password: string) => {
 		throw ApiError.BadRequest(`User with email address ${email} unregistered!`);
 	}
 
+	if (!user.isActivated) {
+		throw ApiError.BadRequest(`Email ${email} not confirmed!`);
+	}
+
 	const isPassEquals = await bcrypt.compare(password, user?.password);
 
 	if (!isPassEquals) {

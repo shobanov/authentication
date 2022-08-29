@@ -1,11 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Toaster } from 'react-hot-toast';
+import { ToastContainer } from 'react-toastify';
 
 import { schema } from './validation';
 import { LoginDto } from '../../types';
-import { Button, Input, Spinner } from '../../components';
-import { AuthForm, AuthWrapper, Link, Nav } from './styles';
+import { Button, Input, Link } from '../../components';
+import { AuthForm, AuthWrapper, Nav } from './styles';
 import { useLoginMutation } from './useLoginMutation';
 
 export const Login = () => {
@@ -17,6 +17,7 @@ export const Login = () => {
 		formState: { errors },
 	} = useForm<LoginDto>({
 		resolver: yupResolver(schema),
+		mode: 'onTouched',
 	});
 
 	const handleSubmit: SubmitHandler<LoginDto> = loginData => {
@@ -25,8 +26,7 @@ export const Login = () => {
 
 	return (
 		<AuthWrapper>
-			<Toaster />
-			{isLoading && <Spinner />}
+			<ToastContainer limit={1} />
 			<h2>Sign in</h2>
 			<AuthForm onSubmit={handleFormSubmit(handleSubmit)}>
 				<Input
@@ -42,10 +42,12 @@ export const Login = () => {
 					{...register('password')}
 				/>
 				<Button
-					title='SIGN IN'
 					type='submit'
 					disabled={isLoading || isSuccess}
-				/>
+					isLoading={isLoading}
+				>
+					SIGN IN
+				</Button>
 				<Nav>
 					<Link to='/password_recovery'>Forgot password?</Link>
 					<Link to='/registration'>Don't have an account? Sign Up</Link>

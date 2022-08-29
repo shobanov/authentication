@@ -1,13 +1,13 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Toaster } from 'react-hot-toast';
+import { ToastContainer } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 
-import { Button, Input, Spinner } from '../../components';
+import { Button, Input } from '../../components';
 import { usePassUpdateMutation } from './usePassUpdate';
 import { schema } from './validation';
 import { IPasswordUpdate } from '../../types';
 import { PasswordUpdateForm, PasswordUpdateWrapper } from './styles';
-import { useParams } from 'react-router-dom';
 
 export const PasswordUpdate = () => {
 	const { mutate, isLoading, isSuccess } = usePassUpdateMutation();
@@ -19,6 +19,7 @@ export const PasswordUpdate = () => {
 		formState: { errors },
 	} = useForm<IPasswordUpdate>({
 		resolver: yupResolver(schema),
+		mode: 'onTouched',
 	});
 
 	const handleSubmit: SubmitHandler<IPasswordUpdate> = ({ password }) => {
@@ -27,8 +28,7 @@ export const PasswordUpdate = () => {
 
 	return (
 		<PasswordUpdateWrapper>
-			<Toaster />
-			{isLoading && <Spinner />}
+			<ToastContainer limit={1} />
 			<h2>Сreate a new password</h2>
 			<PasswordUpdateForm onSubmit={handleFormSubmit(handleSubmit)}>
 				<Input
@@ -44,10 +44,12 @@ export const PasswordUpdate = () => {
 					{...register('passwordConfirm')}
 				/>
 				<Button
-					title='change password'
 					type='submit'
 					disabled={isLoading || isSuccess}
-				/>
+					isLoading={isLoading}
+				>
+					change password
+				</Button>
 			</PasswordUpdateForm>
 		</PasswordUpdateWrapper>
 	);

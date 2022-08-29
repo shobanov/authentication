@@ -4,11 +4,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { App } from './App';
+import { AuthContextProvider } from './context';
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
 
+// React query
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -20,9 +22,11 @@ const queryClient = new QueryClient({
 root.render(
 	<React.StrictMode>
 		<QueryClientProvider client={queryClient}>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
+			<AuthContextProvider>
+				<BrowserRouter>
+					<App />
+				</BrowserRouter>
+			</AuthContextProvider>
 		</QueryClientProvider>
 	</React.StrictMode>
 );

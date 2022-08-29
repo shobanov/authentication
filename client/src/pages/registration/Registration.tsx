@@ -1,34 +1,35 @@
 import React, { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Toaster } from 'react-hot-toast';
+import { ToastContainer } from 'react-toastify';
 
 import { schema } from './validation';
-import { RegisterDto } from '../../types';
-import { useRegisterMutation } from './useRegisterMutation';
-import { Button, Checkbox, Input, MailPlug, Spinner } from '../../components';
-import {
-	RegistrationForm,
-	Nav,
-	Link,
-	NameContainer,
-	RegistrationWrapper,
-} from './styles';
+import { IRegistration } from '../../types';
+import { useRegistrationMutation } from './useRegistrationMutation';
+import { Button, Checkbox, Input, Link } from '../../components';
+import { RegistrationForm, NameContainer, RegistrationWrapper } from './styles';
+import { MailNotify } from '../../notifications';
 
 export const Registration = () => {
-	const { mutate, isLoading, isSuccess } = useRegisterMutation();
+	const { mutate, isLoading, isSuccess } = useRegistrationMutation();
 	const [isChecked, setIsChecked] = useState<boolean>(false);
 
 	const {
 		register,
 		handleSubmit: handleFormSubmit,
-		formState: { errors, isValid },
-	} = useForm<RegisterDto>({
+		formState: { errors },
+	} = useForm<IRegistration>({
 		resolver: yupResolver(schema),
+		mode: 'onTouched',
 	});
 
-	const handleSubmit: SubmitHandler<RegisterDto> = RegistrationData => {
-		mutate(RegistrationData);
+	const handleSubmit: SubmitHandler<IRegistration> = ({
+		email,
+		firstName,
+		lastName,
+		password,
+	}) => {
+		mutate({ email, firstName, lastName, password });
 	};
 
 	const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,13 +37,16 @@ export const Registration = () => {
 	};
 
 	if (isSuccess) {
-		return <MailPlug title='A confirmation email has been sent to you' />;
+		return (
+			<MailNotify>
+				To change your password, follow the link sent to your email
+			</MailNotify>
+		);
 	}
 
 	return (
 		<RegistrationWrapper>
-			<Toaster />
-			{isLoading && <Spinner />}
+			<ToastContainer limit={1} />
 			<h2>Sign up</h2>
 			<RegistrationForm onSubmit={handleFormSubmit(handleSubmit)}>
 				<NameContainer>
@@ -71,20 +75,26 @@ export const Registration = () => {
 					validationError={errors.password?.message}
 					{...register('password')}
 				/>
+				<Input
+					type='password'
+					placeholder='Confirm password *'
+					validationError={errors.passwordConfirm?.message}
+					{...register('passwordConfirm')}
+				/>
 				<Checkbox
 					label='I accept the user agreement'
 					isChecked={isChecked}
-					handleChange={handleCheckbox}
+					onChange={handleCheckbox}
 					isDisabled={isSuccess}
 				/>
 				<Button
-					title='SIGN UP'
 					type='submit'
-					disabled={!isValid || !isChecked || isLoading || isSuccess}
-				/>
-				<Nav>
-					<Link to='/login'>Already have an account? Sign in</Link>
-				</Nav>
+					disabled={!isChecked || isLoading || isSuccess}
+					isLoading={isLoading}
+				>
+					SIGN UP
+				</Button>
+				<Link to='/login'>Already have an account? Sign in</Link>
 			</RegistrationForm>
 		</RegistrationWrapper>
 	);

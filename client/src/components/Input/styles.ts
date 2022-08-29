@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const InputStyled = styled.input`
-	height: 40px;
-	width: -webkit-fill-available;
+	height: 44px;
 	border-radius: 2px;
 	border: 1px solid;
-	padding-left: 5px;
+	width: inherit;
+	text-indent: 5px;
+	box-sizing: border-box;
 `;
 
 export const InputWrapper = styled.div`

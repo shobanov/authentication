@@ -1,13 +1,16 @@
+import { useContext } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError, AxiosResponse } from 'axios';
-import toast from 'react-hot-toast';
 
 import { AuthApi } from '../../api/AuthApi';
 import { AuthResponse, ErrorResponse, LoginDto } from '../../types';
+import { errorNotify } from '../../notifications/errorNotify';
+import { AuthContext } from '../../context';
 
 export const useLoginMutation = () => {
 	const navigate = useNavigate();
+	const { setUserName, setIsAuth } = useContext(AuthContext);
 
 	return useMutation<
 		AxiosResponse<AuthResponse>,
@@ -15,14 +18,12 @@ export const useLoginMutation = () => {
 		LoginDto
 	>('login', data => AuthApi.login(data), {
 		onSuccess({ data }) {
-			toast.success('you have successfully logged in!');
-			localStorage.setItem('token', data.data.accessToken);
-			setTimeout(() => {
-				navigate('/greeting');
-			}, 2500);
+			setUserName(data.data.user.firstName);
+			setIsAuth(true);
+			navigate('/greeting');
 		},
 		onError(error) {
-			toast.error(`${error.response?.data.message}`);
+			errorNotify(error);
 		},
 	});
 };
