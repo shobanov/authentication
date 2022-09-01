@@ -1,10 +1,11 @@
 import { PropsWithChildren } from 'react';
+
 import { LinkStyled } from './styles';
 
 interface LinkProps {
-	to: string;
+  to: string;
 }
 
-export const Link = (props: PropsWithChildren<LinkProps>) => (
-	<LinkStyled {...props} />
-);
+export function Link(props: PropsWithChildren<LinkProps>) {
+  return <LinkStyled {...props} />;
+}

@@ -1,9 +1,9 @@
-import { forwardRef, PropsWithChildren } from 'react';
+import { forwardRef, PropsWithChildren, ReactNode } from 'react';
 
 import { ButtonStyled } from './styles';
 
 interface ButtonProps {
-  children: React.ReactNode;
+  children: ReactNode;
   type: 'button' | 'reset' | 'submit';
   isLoading?: boolean;
   disabled?: boolean;
@@ -11,7 +11,5 @@ interface ButtonProps {
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (props: PropsWithChildren, ref) => {
-    return <ButtonStyled ref={ref} {...props} />;
-  }
+  (props: PropsWithChildren, ref) => <ButtonStyled ref={ref} {...props} />,
 );

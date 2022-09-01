@@ -7,18 +7,18 @@ import { ErrorResponse, PasswordUpdateDto } from '../../types';
 import { errorNotify } from '../../notifications/errorNotify';
 
 export const usePassUpdateMutation = () => {
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
-	return useMutation<
-		AxiosResponse,
-		AxiosError<ErrorResponse>,
-		PasswordUpdateDto
-	>('passwordUpdate', data => AuthApi.passwordUpdate(data), {
-		onSuccess() {
-			navigate('/login');
-		},
-		onError(error) {
-			errorNotify(error);
-		},
-	});
+  return useMutation<
+    AxiosResponse,
+    AxiosError<ErrorResponse>,
+    PasswordUpdateDto
+  >('passwordUpdate', (data) => AuthApi.passwordUpdate(data), {
+    onSuccess() {
+      navigate('/login');
+    },
+    onError(error) {
+      errorNotify(error);
+    },
+  });
 };

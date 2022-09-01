@@ -1,9 +1,9 @@
 import { ErrorStyled } from './styles';
 
 interface ValidationErrorProps {
-	errorMessage?: string;
+  errorMessage?: string;
 }
 
-export const ValidationError = ({ errorMessage }: ValidationErrorProps) => (
-	<ErrorStyled>{errorMessage}</ErrorStyled>
-);
+export function ValidationError({ errorMessage }: ValidationErrorProps) {
+  return <ErrorStyled>{errorMessage}</ErrorStyled>;
+}

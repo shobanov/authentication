@@ -9,7 +9,7 @@ import { usePassUpdateMutation } from './usePassUpdate';
 import { PasswordUpdateForm, PasswordUpdateWrapper } from './styles';
 import { schema } from './validation';
 
-export const PasswordUpdate = () => {
+export function PasswordUpdate() {
   const { mutate, isLoading, isSuccess } = usePassUpdateMutation();
   const { link } = useParams();
 
@@ -53,4 +53,4 @@ export const PasswordUpdate = () => {
       </PasswordUpdateForm>
     </PasswordUpdateWrapper>
   );
-};
+}

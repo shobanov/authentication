@@ -1,14 +1,16 @@
+import { ReactNode } from 'react';
+
 import { GlobalStyles, StyledRoot } from './globalStyles';
 
 interface RootProps {
-	children: React.ReactNode;
+  children: ReactNode;
 }
 
-export const Root = ({ children }: RootProps) => {
-	return (
-		<>
-			<GlobalStyles />
-			<StyledRoot>{children}</StyledRoot>
-		</>
-	);
-};
+export function Root({ children }: RootProps) {
+  return (
+    <>
+      <GlobalStyles />
+      <StyledRoot>{children}</StyledRoot>
+    </>
+  );
+}

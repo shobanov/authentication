@@ -4,7 +4,7 @@ export const Label = styled.label`
   align-self: flex-start;
 `;
 
-export const CheckboxStyled = styled.input.attrs({ type: "checkbox" })`
+export const CheckboxStyled = styled.input.attrs({ type: 'checkbox' })`
   vertical-align: middle;
 `;
 

@@ -9,21 +9,21 @@ import { errorNotify } from '../../notifications/errorNotify';
 import { AuthContext } from '../../context';
 
 export const useLogoutMutation = () => {
-	const navigate = useNavigate();
-	const { setUserName, setIsAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { setUserName, setIsAuth } = useContext(AuthContext);
 
-	return useMutation<void, AxiosError<ErrorResponse>>(
-		'logout',
-		() => AuthApi.logout(),
-		{
-			onSuccess() {
-				setUserName('');
-				setIsAuth(false);
-				navigate('/login');
-			},
-			onError(error) {
-				errorNotify(error);
-			},
-		}
-	);
+  return useMutation<void, AxiosError<ErrorResponse>>(
+    'logout',
+    () => AuthApi.logout(),
+    {
+      onSuccess() {
+        setUserName('');
+        setIsAuth(false);
+        navigate('/login');
+      },
+      onError(error) {
+        errorNotify(error);
+      },
+    },
+  );
 };

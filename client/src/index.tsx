@@ -4,29 +4,26 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { App } from './App';
-import { AuthContextProvider } from './context';
 
 const root = ReactDOM.createRoot(
-	document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
 
 // React query
 const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			refetchOnWindowFocus: false,
-		},
-	},
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
 });
 
 root.render(
-	<React.StrictMode>
-		<QueryClientProvider client={queryClient}>
-			<AuthContextProvider>
-				<BrowserRouter>
-					<App />
-				</BrowserRouter>
-			</AuthContextProvider>
-		</QueryClientProvider>
-	</React.StrictMode>
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </QueryClientProvider>
+  </React.StrictMode>,
 );

@@ -22,9 +22,9 @@ code {
 `;
 
 export const StyledRoot = styled.div`
-	display: flex;
-	margin: 0 auto;
-	align-items: center;
-	justify-content: center;
-	height: 100vh;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 `;
