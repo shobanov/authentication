@@ -1,11 +1,12 @@
 import express from 'express';
+import jwt = require('jsonwebtoken');
 
 import { ApiError } from '../exceptions/api-error';
 const tokenService = require('../Tokens/tokenService');
 
 module.exports = async function (
 	req: express.Request,
-	_res: express.Response,
+	res: express.Response,
 	next: express.NextFunction
 ) {
 	try {
@@ -21,7 +22,7 @@ module.exports = async function (
 
 		if (!userData) return next(ApiError.UnauthorizedError());
 
-		next();
+		return res.status(200).json({ message: 'AccessToken is OK' });
 	} catch (e) {
 		return next(ApiError.UnauthorizedError());
 	}

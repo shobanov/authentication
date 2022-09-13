@@ -13,9 +13,10 @@ export const useLoginMutation = () => {
     AxiosResponse<AuthResponse>,
     AxiosError<ErrorResponse>,
     LoginDto
-  >('login', (data) => AuthApi.login(data), {
+  >((data) => AuthApi.login(data), {
     onSuccess({ data }) {
-      localStorage.setItem('authToken', data.data.accessToken);
+      localStorage.setItem('userName', data.user.firstName);
+      localStorage.setItem('accessToken', data.accessToken);
       navigate('/greeting');
     },
     onError(error) {

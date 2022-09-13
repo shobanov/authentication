@@ -42,25 +42,21 @@ exports.logout = async (refreshToken: string) => {
 };
 
 exports.refresh = async (refreshToken: string) => {
-	if (!refreshToken) {
-		throw ApiError.UnauthorizedError();
-	}
+	if (!refreshToken) throw ApiError.UnauthorizedError();
 
 	const userData = await tokenService.validateRefreshToken(refreshToken);
 	const tokenFromDb = await tokenService.findToken(refreshToken);
 
-	if (!userData || !tokenFromDb) {
+	if (!userData && !tokenFromDb) {
 		throw ApiError.UnauthorizedError();
 	}
-
 	const user = await prisma.user.findUnique({
 		where: {
 			id: userData.id,
 		},
 	});
-
 	const userDto = new UserDto(user!);
-	const tokens = await tokenService.generateTokens({ userDto });
+	const tokens = await tokenService.generateTokens({ ...userDto });
 	await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
 	return { ...tokens, user: userDto };

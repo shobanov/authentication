@@ -39,7 +39,6 @@ exports.PasswordUpdate = async (
 	next: express.NextFunction
 ) => {
 	const { password, link } = req.body;
-	console.log('link: ', link);
 
 	try {
 		const { email } = await services.PasswordUpdate(password, link);

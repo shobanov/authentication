@@ -3,9 +3,18 @@ import { ToastContainer } from 'react-toastify';
 import { GreetingWrapper } from './styles';
 import { Button } from '../../components';
 import { useLogoutMutation } from './useLogoutMutation';
+import { useAuthMeQuery } from './useAuthMe';
+import { Spinner } from '../../notifications/Spinner';
 
 export function Greeting() {
+  const { isLoading: isLoadingAuthMe } = useAuthMeQuery();
   const { mutate, isLoading, isSuccess } = useLogoutMutation();
+
+  if (isLoadingAuthMe) {
+    return <Spinner />;
+  }
+
+  const userName = localStorage.getItem('userName');
 
   const handleLogoutClick = () => {
     mutate();
@@ -23,10 +32,7 @@ export function Greeting() {
         Logout
       </Button>
 
-      <h2>
-        Congratulations
-        {}, you have successfully logged in!
-      </h2>
+      <h2>Congratulations {userName}, you have successfully logged&nbsp;in!</h2>
     </GreetingWrapper>
   );
 }

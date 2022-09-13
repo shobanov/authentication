@@ -11,11 +11,14 @@ import {
 
 export const instance = axios.create({
   baseURL: 'http://localhost:5000/',
+  withCredentials: true,
 });
 
 instance.interceptors.request.use((config: AxiosRequestConfig) => {
   // eslint-disable-next-line no-param-reassign
-  config.headers!.Authotization = `Bearer ${localStorage.getItem('token')}`;
+  config.headers!.Authorization = `Bearer ${localStorage.getItem(
+    'accessToken',
+  )}`;
 
   return config;
 });
@@ -42,5 +45,11 @@ export const AuthApi = {
     dto: PasswordRecoveryDto,
   ): Promise<AxiosResponse<void>> {
     return instance.post('password_recovery', dto);
+  },
+  async me(): Promise<AxiosResponse<AuthResponse>> {
+    return instance.get<AuthResponse>('me');
+  },
+  async refreshToken(): Promise<AxiosResponse<AuthResponse>> {
+    return instance.post<AuthResponse>('refreshToken');
   },
 };

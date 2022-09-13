@@ -10,12 +10,8 @@ export const useRegistrationMutation = () =>
     AxiosResponse<AuthResponse>,
     AxiosError<ErrorResponse>,
     RegistrationDto
-  >(
-    'registration',
-    (registrationData) => AuthApi.registration(registrationData),
-    {
-      onError(error) {
-        errorNotify(error);
-      },
+  >((registrationData) => AuthApi.registration(registrationData), {
+    onError(error) {
+      errorNotify(error);
     },
-  );
+  });

@@ -10,21 +10,22 @@ exports.registration = async (
 ) => {
 	const { firstName, lastName, email, password } = req.body;
 	try {
-		const userData = await services.registration(
+		const { user, accessToken, refreshToken } = await services.registration(
 			firstName,
 			lastName,
 			email,
 			password
 		);
 
-		res.cookie('refreshToken', userData.refreshToken, {
+		res.cookie('refreshToken', refreshToken, {
 			maxAge: 30 * 24 * 60 * 60 * 1000,
 			httpOnly: true,
 		});
 
 		return res.status(201).json({
 			message: `The user has been successfully registered, to confirm the registration, follow the link that we sent to e-mail ${email}`,
-			userData,
+			accessToken,
+			user,
 		});
 	} catch (e) {
 		next(e);

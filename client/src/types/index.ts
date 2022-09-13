@@ -6,11 +6,8 @@ export interface IUser {
 }
 
 export type AuthResponse = {
-  data: {
-    accessToken: string;
-    refreshToken: string;
-    user: IUser;
-  };
+  accessToken: string;
+  user: IUser;
 };
 
 export type RegistrationDto = {

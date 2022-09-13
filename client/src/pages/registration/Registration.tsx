@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ToastContainer } from 'react-toastify';
+import { sha256 } from 'js-sha256';
 
 import { schema } from './validation';
 import { IRegistration } from '../../types';
@@ -33,7 +34,7 @@ export function Registration() {
       email,
       firstName,
       lastName,
-      password,
+      password: sha256(password),
     });
   };
 

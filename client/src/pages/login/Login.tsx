@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ToastContainer } from 'react-toastify';
+import { sha256 } from 'js-sha256';
 
 import { schema } from './validation';
 import { LoginDto } from '../../types';
@@ -20,8 +21,8 @@ export function Login() {
     mode: 'onTouched',
   });
 
-  const handleSubmit: SubmitHandler<LoginDto> = (loginData) => {
-    mutate(loginData);
+  const handleSubmit: SubmitHandler<LoginDto> = ({ email, password }) => {
+    mutate({ email, password: sha256(password) });
   };
 
   return (

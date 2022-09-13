@@ -1,7 +1,5 @@
-import React from 'react';
 import { Registration } from '../../src/pages/registration';
 
-/* eslint-disable no-undef */
 describe('Регистрация', () => {
   beforeEach(() => cy.mount(<Registration />));
 

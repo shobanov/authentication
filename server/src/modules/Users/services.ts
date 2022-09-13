@@ -51,7 +51,6 @@ exports.PasswordUpdate = async (password: string, link: string) => {
 			passwordUpdateLink: link,
 		},
 	});
-	console.log('user: ', user);
 	if (!user) {
 		throw ApiError.BadRequest('link is not correct');
 	}

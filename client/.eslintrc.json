@@ -2,14 +2,18 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "jest": true
+    "jest": true,
+    "cypress/globals": true
   },
   "extends": [
     "react-app",
+    "plugin:react/recommended",
+    "prettier/react",
     "react-app/jest",
     "airbnb",
     "airbnb/hooks",
     "airbnb-typescript",
+    "plugin:cypress/recommended",
     "plugin:import/typescript",
     "plugin:prettier/recommended"
   ],
@@ -22,12 +26,16 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "prettier",
+    "cypress",
+    "@cypress/json"
+  ],
   "rules": {
     "prettier/prettier": "off",
     "no-console": "warn",
-    "max-len": ["warn", { "code": 120 }],
-    "semi": ["warn", "always"],
     "import/order": [
       "warn",
       {
@@ -85,12 +93,27 @@
     ],
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+    "@typescript-eslint/no-unused-expressions": [
+      "warn",
+      { "allowTernary": true }
+    ],
+
+    // disabled rules
     "import/prefer-default-export": "off",
     "react/jsx-props-no-spreading": "off",
     "import/extensions": "off",
     "import/no-unresolved": "off",
     "react/require-default-props": "off",
     "arrow-body-style": "off",
-    "implicit-arrow-linebreak": "off"
+    "implicit-arrow-linebreak": "off",
+    "no-return-assign": "off"
+
+    // cypress rules
+    // "cypress/no-assigning-return-values": "error",
+    // "cypress/no-unnecessary-waiting": "error",
+    // "cypress/assertion-before-screenshot": "warn",
+    // "cypress/no-force": "warn",
+    // "cypress/no-async-tests": "error",
+    // "cypress/no-pause": "error"
   }
 }
