@@ -54,8 +54,6 @@ exports.refresh = async (
 	try {
 		const { refreshToken: refreshTokenFromCookies } = req.cookies;
 
-		console.log('!!!!!!!refreshTokenFromCookies: ', refreshTokenFromCookies);
-
 		const { user, accessToken, refreshToken } = await services.refresh(
 			refreshTokenFromCookies
 		);
